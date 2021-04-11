@@ -1,0 +1,25 @@
+Package: franceinter
+Type: Package
+Title: Get France Inter Podcasts
+Version: 0.0.0.9000
+Authors@R: c(
+    person(given   = "Nicolas",
+           family  = "Casajus",
+           role    = c("aut", "cre"),
+           email   = "nicolas.casajus@fondationbiodiversite.fr",
+           comment = c(ORCID = "0000-0002-5537-5294")))
+Description: Gets France Inter metadata (i.e. date, title, and mp3 url) for a
+    selected podcasts (e.g. Tanguy Pastureau, Guillaume Meurice, Waly Dia, Sur 
+    les Epaules de Darwin, Ca peut pas faire de mal).
+URL: https://github.com/ahasverus/franceinter
+BugReports: https://github.com/ahasverus/franceinter/issues
+License: MIT + file LICENSE
+Encoding: UTF-8
+LazyData: true
+Imports: 
+    jsonlite,
+    rvest,
+    usethis,
+    utils
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.1.1
