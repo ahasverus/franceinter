@@ -84,11 +84,40 @@
 <p>Then you can attach the package <code>franceinter</code>:</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="kw">library</span>(<span class="st">"franceinter"</span>)</span></code></pre></div>
 </div>
-<div id="overview" class="section level2">
+<div id="usage" class="section level2">
 <h2 class="hasAnchor">
-<a href="#overview" class="anchor"></a>Overview</h2>
-<p>Here is an overview of <code>franceinter</code> content:</p>
-<p><strong>{{ Coming soon }}</strong></p>
+<a href="#usage" class="anchor"></a>Usage</h2>
+<div class="sourceCode" id="cb3"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a><span class="co">## Create a folder to store results ----</span></span>
+<span id="cb3-2"><a href="#cb3-2"></a></span>
+<span id="cb3-3"><a href="#cb3-3"></a>path &lt;-<span class="st"> "Podcasts/"</span></span>
+<span id="cb3-4"><a href="#cb3-4"></a><span class="kw">dir.create</span>(path)</span>
+<span id="cb3-5"><a href="#cb3-5"></a></span>
+<span id="cb3-6"><a href="#cb3-6"></a></span>
+<span id="cb3-7"><a href="#cb3-7"></a><span class="co">## Get podcasts name ----</span></span>
+<span id="cb3-8"><a href="#cb3-8"></a></span>
+<span id="cb3-9"><a href="#cb3-9"></a>podcasts &lt;-<span class="st"> </span><span class="kw">list_podcasts</span>()</span>
+<span id="cb3-10"><a href="#cb3-10"></a>podcast  &lt;-<span class="st"> </span>podcasts[<span class="dv">3</span>, ]</span>
+<span id="cb3-11"><a href="#cb3-11"></a></span>
+<span id="cb3-12"><a href="#cb3-12"></a><span class="co">##                    podcast start_date end_date</span></span>
+<span id="cb3-13"><a href="#cb3-13"></a><span class="co">## 3 la-chronique-de-waly-dia 2020-10-05     &lt;NA&gt;</span></span>
+<span id="cb3-14"><a href="#cb3-14"></a></span>
+<span id="cb3-15"><a href="#cb3-15"></a></span>
+<span id="cb3-16"><a href="#cb3-16"></a><span class="co">## Retrieve episodes information ----</span></span>
+<span id="cb3-17"><a href="#cb3-17"></a></span>
+<span id="cb3-18"><a href="#cb3-18"></a>tab &lt;-<span class="st"> </span><span class="kw">get_metadata</span>(<span class="dt">podcast    =</span> podcast<span class="op">$</span><span class="st">"podcast"</span>, </span>
+<span id="cb3-19"><a href="#cb3-19"></a>                   <span class="dt">start_date =</span> podcast<span class="op">$</span><span class="st">"start_date"</span>, </span>
+<span id="cb3-20"><a href="#cb3-20"></a>                   <span class="dt">end_date   =</span> podcast<span class="op">$</span><span class="st">"end_date"</span>, </span>
+<span id="cb3-21"><a href="#cb3-21"></a>                   <span class="dt">path =</span> path)</span>
+<span id="cb3-22"><a href="#cb3-22"></a></span>
+<span id="cb3-23"><a href="#cb3-23"></a><span class="co">## ✓ Adding 15 new episodes to './Podcasts/la-chronique-de-waly-dia.csv' </span></span>
+<span id="cb3-24"><a href="#cb3-24"></a></span>
+<span id="cb3-25"><a href="#cb3-25"></a></span>
+<span id="cb3-26"><a href="#cb3-26"></a><span class="co">## Create a M3U playlist ----</span></span>
+<span id="cb3-27"><a href="#cb3-27"></a></span>
+<span id="cb3-28"><a href="#cb3-28"></a><span class="kw">add_m3u</span>(tab, podcast<span class="op">$</span><span class="st">"podcast"</span>, <span class="dt">path =</span> path)</span>
+<span id="cb3-29"><a href="#cb3-29"></a></span>
+<span id="cb3-30"><a href="#cb3-30"></a><span class="co">## ✓ Writing './Podcasts/la-chronique-de-waly-dia.m3u' file</span></span></code></pre></div>
+<p>The <code>m3u</code> file can be open with VLC to stream all episodes. To add new episodes, just re-run this block code. A function to download mp3 will be available soon.</p>
 </div>
 <div id="citation" class="section level2">
 <h2 class="hasAnchor">
