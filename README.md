@@ -31,11 +31,42 @@ Then you can attach the package `franceinter`:
 
     library("franceinter")
 
-## Overview
+## Usage
 
-Here is an overview of `franceinter` content:
+    ## Create a folder to store results ----
 
-**{{ Coming soon }}**
+    path <- "Podcasts/"
+    dir.create(path)
+
+
+    ## Get podcasts name ----
+
+    podcasts <- list_podcasts()
+    podcast  <- podcasts[3, ]
+
+    ##                    podcast start_date end_date
+    ## 3 la-chronique-de-waly-dia 2020-10-05     <NA>
+
+
+    ## Retrieve episodes information ----
+
+    tab <- get_metadata(podcast    = podcast$"podcast", 
+                       start_date = podcast$"start_date", 
+                       end_date   = podcast$"end_date", 
+                       path = path)
+
+    ## ✓ Adding 15 new episodes to './Podcasts/la-chronique-de-waly-dia.csv' 
+
+
+    ## Create a M3U playlist ----
+
+    add_m3u(tab, podcast$"podcast", path = path)
+
+    ## ✓ Writing './Podcasts/la-chronique-de-waly-dia.m3u' file
+
+The `m3u` file can be open with VLC to stream all episodes. To add new
+episodes, just re-run this block code. A function to download mp3 will
+be available soon.
 
 ## Citation
 

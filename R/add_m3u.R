@@ -90,5 +90,9 @@ add_m3u <- function(data, podcast, path = ".", na_rm = TRUE) {
   cat(paste0(c(content, ""), collapse = "\n"),
       file = file.path(path, paste0(tolower(podcast), ".m3u")))
 
+  usethis::ui_done(paste0("Writing ", 
+                          "{usethis::ui_value(file.path(path, paste0(podcast, 
+                            \".m3u\")))} file"))
+  
   invisible(content)
 }

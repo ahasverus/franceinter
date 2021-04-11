@@ -148,7 +148,7 @@ get_metadata <- function(podcast, start_date = NULL, end_date = NULL,
     
     usethis::ui_done(paste0("Adding ", 
                             "{usethis::ui_value(nrow(data) - n_episodes)} ",
-                            "new episodes in ",
+                            "new episodes to ",
                             "{usethis::ui_value(file.path(path, paste0(podcast, 
                             \".csv\")))} "))
   } else {
