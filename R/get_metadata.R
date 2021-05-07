@@ -84,6 +84,17 @@ get_metadata <- function(podcast, start_date = NULL, end_date = NULL,
     data <- data.frame()
   }
   
+  
+  ## Remove Episodes with Incomplete Information ----
+  
+  if (na_rm && nrow(data)) {
+    
+    data <- data[!is.na(data$"date"), ]
+    data <- data[!is.na(data$"title"), ]
+    data <- data[!is.na(data$"duration"), ]
+    data <- data[!is.na(data$"file_url"), ]
+  }
+  
   n_episodes <- nrow(data)
   
   
@@ -106,7 +117,7 @@ get_metadata <- function(podcast, start_date = NULL, end_date = NULL,
       
       if (page$response$status_code == 200) {
         
-        cat("Retrieving metadata for episode:", dates[i, "short_date"], "\n")
+        cat("Retrieving metadata for episode:", dates[i, "short_date"], "\r")
         
         content <- rvest::html_elements(page, "script")[1]
         content <- jsonlite::fromJSON(rvest::html_text(content))
@@ -143,8 +154,6 @@ get_metadata <- function(podcast, start_date = NULL, end_date = NULL,
     
     utils::write.csv2(data, file = file.path(path, paste0(podcast, ".csv")),
                       row.names = FALSE)
-    
-    usethis::ui_line()
     
     usethis::ui_done(paste0("Adding ", 
                             "{usethis::ui_value(nrow(data) - n_episodes)} ",

@@ -66,6 +66,8 @@ add_m3u <- function(data, podcast, path = ".", na_rm = TRUE) {
     data <- data[!is.na(data$"file_url"), ]
   }
   
+  data <- data[nrow(data):1, ]
+  
   
   ## Write M3U Expression ----
   
