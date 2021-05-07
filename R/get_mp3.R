@@ -27,8 +27,8 @@ get_mp3 <- function(data, podcast, path = ".") {
       
       if (!file.exists(file.path(path, podcast, filename))) {
         
-        download.file(url      = data$"file_url"[i], 
-                      destfile = file.path(path, podcast, filename))
+        utils::download.file(url      = data$"file_url"[i], 
+                             destfile = file.path(path, podcast, filename))
         
         k <- k + 1
       }

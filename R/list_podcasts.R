@@ -23,13 +23,13 @@ list_podcasts <- function() {
     c("la-chronique-de-waly-dia",                   "2020-10-05", NA,
       "Waly Dia", "La Chronique de Waly Dia"),
     c("la-chanson-de-frederic-fromet",              "2015-03-06", NA,
-      "Frédéric Fromet", "La Chanson de Frédéric Fromet")#,
+      "Frederic Fromet", "La Chanson de Frederic Fromet")#,
     #c("sur-les-epaules-de-darwin",                  "2011-02-05", "2020-03-14",
     #  "Jean-Claude Ameisen", "Sur les Epaules de Darwin"),
     #c("ca-peut-pas-faire-de-mal",                   "2011-06-25", "2020-02-08",
     #  "Guillaume Gallienne", "Ca peut pas faire de mal"),
     #c("la-drole-d-humeur-de-pierre-emmanuel-barre", "2015-01-06", "2017-04-19",
-    #  "Pierre Emmanuel Barré", "La Drôle d'humeur de Pierre Emmanuel Barré")
+    #  "Pierre Emmanuel Barre", "La Drole d'humeur de Pierre Emmanuel Barre")
   ), ncol = 5, byrow = TRUE))
   
   colnames(podcasts) <- c("label", "start_date", "end_date", "artist", 
