@@ -24,6 +24,8 @@ devtools::load_all()
 
 path     <- file.path("", "Users", "nicolascasajus", "Nextcloud", "Podcasts",
                       "Playlists")
+path     <- file.path("/", "home", "ahasverus", "Nextcloud", "Podcasts",
+                      "Playlists")
 
 # path_mp3 <- file.path("", "Users", "nicolascasajus", "Nextcloud", "Podcasts")
 # cover    <- file.path(path_mp3, "sur-les-epaules-de-darwin.jpg")
@@ -32,13 +34,12 @@ path     <- file.path("", "Users", "nicolascasajus", "Nextcloud", "Podcasts",
 ## Get Podcast Info ----
 
 podcasts <- franceinter::list_podcasts()
-# podcasts <- podcasts[grep("darwin", podcasts$label), ]
 
 for (i in 1:nrow(podcasts)) {
 
   podcast  <- podcasts[i, ]
 
-  cat("\n*** ", podcast$"podcast", "***\n")
+  cat("\n*** ", podcast$"podcast", " ***\n")
 
 
   ## Retrieve Metadata ----
@@ -74,3 +75,8 @@ for (i in 1:nrow(podcasts)) {
   #                        artist = podcast$"artist",
   #                        data   = tab)
 }
+
+
+## Create MEGA M3U file ----
+
+franceinter::all_m3u(path)

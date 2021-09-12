@@ -36,9 +36,9 @@ podcasts <- list_podcasts()
 podcast  <- podcasts[3, ]
 
 ## Retrieve episodes information ----
-tab <- get_metadata(podcast    = podcast$"podcast", 
-                    start_date = podcast$"start_date", 
-                    end_date   = podcast$"end_date", 
+tab <- get_metadata(podcast    = podcast$"podcast",
+                    start_date = podcast$"start_date",
+                    end_date   = podcast$"end_date",
                     path = path)
 
 ## Create a M3U playlist ----

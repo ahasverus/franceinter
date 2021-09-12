@@ -54,7 +54,9 @@ get_metadata <- function(podcast, start_date = NULL, end_date = NULL,
   if (is.null(podcast))       stop("Argument 'podcast' is required.")
   if (!is.character(podcast)) stop("Argument 'podcast' must be a character.")
   
-  page <- rvest::session(paste0(base_url(), podcast))
+  page <- rvest::session(paste0(base_url(), 
+                                  podcast))
+  
   if (page$response$status_code != 200) stop("Wrong podcast name.")
   
   if (!is.logical(na_rm))     stop("Argument 'na_rm' must be a boolean.")
