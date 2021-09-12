@@ -108,12 +108,42 @@ get_metadata <- function(podcast, start_date = NULL, end_date = NULL,
     
     for (i in 1:nrow(dates)) {
       
-      full_url <- paste0(base_url(), podcast, "/", podcast, "-", 
+      full_url <- paste0(base_url(), podcast, "/", podcast, "-du-", 
                          dates[i, "long_date"])
       
       options(warn = -1)
       page <- rvest::session(full_url)
       options(warn = warn)
+      
+      if (page$response$status_code == 404) {
+        
+        full_url <- paste0(base_url(), podcast, "/", podcast, "-", 
+                           dates[i, "long_date"])
+        
+        options(warn = -1)
+        page <- rvest::session(full_url)
+        options(warn = warn)
+      }
+      
+      if (page$response$status_code == 404) {
+        
+        full_url <- paste0(base_url(), podcast, "/", podcast, "-du-", 
+                           dates[i, "week_day"], "-", dates[i, "long_date"])
+        
+        options(warn = -1)
+        page <- rvest::session(full_url)
+        options(warn = warn)
+      }
+      
+      if (page$response$status_code == 404) {
+        
+        full_url <- paste0(base_url(), podcast, "/", podcast, "-", 
+                           dates[i, "week_day"], "-", dates[i, "long_date"])
+        
+        options(warn = -1)
+        page <- rvest::session(full_url)
+        options(warn = warn)
+      }
       
       if (page$response$status_code == 200) {
         
