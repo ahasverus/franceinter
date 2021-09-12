@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Create a M3U File from a list of URL — add_m3u • franceinter</title>
+<title>Create a M3U File from a list of URL — all_m3u • franceinter</title>
 
 
 <!-- jquery -->
@@ -39,7 +39,7 @@
 
 
 
-<meta property="og:title" content="Create a M3U File from a list of URL — add_m3u" />
+<meta property="og:title" content="Create a M3U File from a list of URL — all_m3u" />
 <meta property="og:description" content="Creates a M3U (MPEG version 3.0 URL) file from a list of URLs. This file can
 be read by any multimedia reader (e.g. VLC). These audio/video URLs will be
 streamed (not downloaded).
@@ -112,8 +112,8 @@ For more information: https://en.wikipedia.org/wiki/M3U" />
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Create a M3U File from a list of URL</h1>
-    <small class="dont-index">Source: <a href='https://github.com/ahasverus/franceinter/blob/master/R/add_m3u.R'><code>R/add_m3u.R</code></a></small>
-    <div class="hidden name"><code>add_m3u.Rd</code></div>
+    <small class="dont-index">Source: <a href='https://github.com/ahasverus/franceinter/blob/master/R/all_m3u.R'><code>R/all_m3u.R</code></a></small>
+    <div class="hidden name"><code>all_m3u.Rd</code></div>
     </div>
 
     <div class="ref-description">
@@ -123,19 +123,11 @@ streamed (not downloaded).
 For more information: <a href='https://en.wikipedia.org/wiki/M3U'>https://en.wikipedia.org/wiki/M3U</a></p>
     </div>
 
-    <pre class="usage"><span class='fu'>add_m3u</span><span class='op'>(</span><span class='va'>data</span>, <span class='va'>podcast</span>, path <span class='op'>=</span> <span class='st'>"."</span>, na_rm <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>all_m3u</span><span class='op'>(</span>path <span class='op'>=</span> <span class='st'>"."</span>, na_rm <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
-    <tr>
-      <th>data</th>
-      <td><p>a data frame created by <code><a href='get_metadata.html'>get_metadata()</a></code>.</p></td>
-    </tr>
-    <tr>
-      <th>podcast</th>
-      <td><p>a character of length 1. The name of the M3U file.</p></td>
-    </tr>
     <tr>
       <th>path</th>
       <td><p>the path to save the M3U file (must exist).</p></td>
@@ -145,6 +137,10 @@ For more information: <a href='https://en.wikipedia.org/wiki/M3U'>https://en.wik
       <td><p>a logical. If <code>TRUE</code> (default) remove episodes with incomplete
 information.</p></td>
     </tr>
+    <tr>
+      <th>data</th>
+      <td><p>a data frame created by <code><a href='get_metadata.html'>get_metadata()</a></code>.</p></td>
+    </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
@@ -153,22 +149,8 @@ information.</p></td>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
-<span class='co'>## Create a folder to store results ----</span>
-<span class='va'>path</span> <span class='op'>&lt;-</span> <span class='st'>"Podcasts/"</span>
-<span class='fu'><a href='https://rdrr.io/r/base/files2.html'>dir.create</a></span><span class='op'>(</span><span class='va'>path</span><span class='op'>)</span>
-
-<span class='co'>## Get podcasts name ----</span>
-<span class='va'>podcasts</span> <span class='op'>&lt;-</span> <span class='fu'><a href='list_podcasts.html'>list_podcasts</a></span><span class='op'>(</span><span class='op'>)</span>
-<span class='va'>podcast</span>  <span class='op'>&lt;-</span> <span class='va'>podcasts</span><span class='op'>[</span><span class='fl'>3</span>, <span class='op'>]</span>
-
-<span class='co'>## Retrieve episodes information ----</span>
-<span class='va'>tab</span> <span class='op'>&lt;-</span> <span class='fu'><a href='get_metadata.html'>get_metadata</a></span><span class='op'>(</span>podcast    <span class='op'>=</span> <span class='va'>podcast</span><span class='op'>$</span><span class='st'>"podcast"</span>,
-                    start_date <span class='op'>=</span> <span class='va'>podcast</span><span class='op'>$</span><span class='st'>"start_date"</span>,
-                    end_date   <span class='op'>=</span> <span class='va'>podcast</span><span class='op'>$</span><span class='st'>"end_date"</span>,
-                    path <span class='op'>=</span> <span class='va'>path</span><span class='op'>)</span>
-
 <span class='co'>## Create a M3U playlist ----</span>
-<span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fu'>add_m3u</span><span class='op'>(</span><span class='va'>tab</span>, <span class='va'>podcast</span><span class='op'>$</span><span class='st'>"podcast"</span>, path <span class='op'>=</span> <span class='va'>path</span><span class='op'>)</span>
+<span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fu'>all_m3u</span><span class='op'>(</span><span class='va'>path</span><span class='op'>)</span>
 
 <span class='fu'><a href='https://rdrr.io/r/base/cat.html'>cat</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste0</a></span><span class='op'>(</span><span class='va'>x</span>, collapse <span class='op'>=</span> <span class='st'>"\n"</span><span class='op'>)</span><span class='op'>)</span>
 <span class='op'>}</span>
