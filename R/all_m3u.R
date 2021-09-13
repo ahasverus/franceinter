@@ -6,7 +6,6 @@
 #' streamed (not downloaded).
 #' For more information: \url{https://en.wikipedia.org/wiki/M3U}
 #'
-#' @param data a data frame created by `get_metadata()`.
 #' @param path the path to save the M3U file (must exist).
 #' @param na_rm a logical. If `TRUE` (default) remove episodes with incomplete
 #'   information.
@@ -43,7 +42,7 @@ all_m3u <- function(path = ".", na_rm = TRUE) {
   csvs <- csvs[-which(csvs %in% c("sur-les-epaules-de-darwin.csv", 
                                   "ca-peut-pas-faire-de-mal.csv"))]
   
-  data <- lapply(csvs, function(x) read.csv2(file.path(path, x)))
+  data <- lapply(csvs, function(x) utils::read.csv2(file.path(path, x)))
   data <- do.call(rbind, data)
   
   

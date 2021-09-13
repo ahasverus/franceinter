@@ -11,8 +11,6 @@ all_m3u(path = ".", na_rm = TRUE)
 
 \item{na_rm}{a logical. If \code{TRUE} (default) remove episodes with incomplete
 information.}
-
-\item{data}{a data frame created by \code{get_metadata()}.}
 }
 \value{
 The content of the M3U file (optional).
