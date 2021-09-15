@@ -27,13 +27,9 @@ all_m3u <- function(path = ".", na_rm = TRUE) {
   
   ## Check Inputs ----
   
-  if (!is.logical(na_rm))     stop("Argument 'na_rm' must be a boolean.")
+  if (!is.logical(na_rm)) stop("Argument 'na_rm' must be a boolean.")
   
-  if (sum(c("date", "title", "duration", "file_url") %in% colnames(data)) != 4)
-    stop("Argument 'data' must contain the following variables: 'date', ",
-         "'title', 'duration', and 'file_url'.")
-  
-  if (!dir.exists(path)) stop("The path <", path, "> does not exist.")
+  if (!dir.exists(path))  stop("The path <", path, "> does not exist.")
   
   
   ## Read metadata ----
@@ -44,6 +40,11 @@ all_m3u <- function(path = ".", na_rm = TRUE) {
   
   data <- lapply(csvs, function(x) utils::read.csv2(file.path(path, x)))
   data <- do.call(rbind, data)
+  
+  
+  if (sum(c("date", "title", "duration", "file_url") %in% colnames(data)) != 4)
+    stop("Argument 'data' must contain the following variables: 'date', ",
+         "'title', 'duration', and 'file_url'.")
   
   
   if (na_rm) {

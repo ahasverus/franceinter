@@ -22,10 +22,17 @@ devtools::load_all()
 
 ## Path(s) to Save Results ----
 
-path     <- file.path("", "Users", "nicolascasajus", "Nextcloud", "Podcasts",
-                      "Playlists")
-path     <- file.path("/", "home", "ahasverus", "Nextcloud", "Podcasts",
-                      "Playlists")
+if (length(grep("apple", sessionInfo()$platform))) {
+
+  path     <- file.path("", "Users", "nicolascasajus", "Nextcloud", "Podcasts",
+                        "Playlists")
+
+} else {
+
+  path     <- file.path("/", "home", "ahasverus", "Nextcloud", "Podcasts",
+                        "Playlists")
+}
+
 
 # path_mp3 <- file.path("", "Users", "nicolascasajus", "Nextcloud", "Podcasts")
 # cover    <- file.path(path_mp3, "sur-les-epaules-de-darwin.jpg")
