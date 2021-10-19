@@ -88,3 +88,6 @@ franceinter::all_m3u(path)
 ## Restore locale ----
 
 Sys.setlocale("LC_TIME", locale)
+
+print(Sys.time())
+
