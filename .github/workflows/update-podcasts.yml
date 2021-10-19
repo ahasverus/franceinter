@@ -21,7 +21,8 @@ jobs:
       - uses: r-lib/actions/setup-r@master
       
       - name: Install dependencies
-        run: install.packages("remotes")
+        run: |
+          install.packages("devtools")
         shell: Rscript {0}
 
       - name: Get metadata
