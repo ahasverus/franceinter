@@ -103,7 +103,7 @@ get_metadata <- function(podcast, start_date = NULL, end_date = NULL,
   ## Retrieve New Episodes Metadata ----
   
   if (nrow(dates)) {
-    
+    print("pass 1")
     warn <- options()$"warn"
     
     episodes <- data.frame()
@@ -148,7 +148,7 @@ get_metadata <- function(podcast, start_date = NULL, end_date = NULL,
       }
       
       if (page$response$status_code == 200) {
-        
+        print("pass 2")
         cat("Retrieving metadata for episode:", dates[i, "short_date"], "\n")
         
         content <- rvest::html_elements(page, "script")[1]
@@ -184,7 +184,7 @@ get_metadata <- function(podcast, start_date = NULL, end_date = NULL,
   
   if (nrow(data) > n_episodes) {
     
-    utils::write.csv2(data, file = file.path(path, "csv", 
+    utils::write.csv2(data, file = file.path(path, "csv",
                                              paste0(podcast, ".csv")),
                       row.names = FALSE)
     
