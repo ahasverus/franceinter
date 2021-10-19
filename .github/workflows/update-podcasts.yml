@@ -2,7 +2,7 @@ name: Add new podcasts
 
 on:
   schedule:
-  - cron: "8 10 * * *"
+  - cron: "13 8 * * *"
 
 jobs:
   build:
