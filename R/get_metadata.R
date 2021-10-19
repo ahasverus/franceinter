@@ -103,7 +103,7 @@ get_metadata <- function(podcast, start_date = NULL, end_date = NULL,
   ## Retrieve New Episodes Metadata ----
   
   if (nrow(dates)) {
-    print("pass 1")
+    
     warn <- options()$"warn"
     
     episodes <- data.frame()
@@ -146,7 +146,7 @@ get_metadata <- function(podcast, start_date = NULL, end_date = NULL,
         page <- rvest::session(full_url)
         options(warn = warn)
       }
-      print(page)
+      
       if (page$response$status_code == 200) {
         
         cat("Retrieving metadata for episode:", dates[i, "short_date"], "\n")
