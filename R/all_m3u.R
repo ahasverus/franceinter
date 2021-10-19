@@ -77,7 +77,7 @@ all_m3u <- function(path = ".", na_rm = TRUE) {
   ## Export M3U File ----
   
   cat(paste0(c(content, ""), collapse = "\n"),
-      file = file.path(path, "all-podcasts.m3u"))
+      file = file.path(path, "m3u", "all-podcasts.m3u"))
   
   usethis::ui_done(paste0("Writing ",
                           "{usethis::ui_value(file.path(path, \"m3u\", ", 
