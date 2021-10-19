@@ -54,8 +54,7 @@ get_metadata <- function(podcast, start_date = NULL, end_date = NULL,
   if (is.null(podcast))       stop("Argument 'podcast' is required.")
   if (!is.character(podcast)) stop("Argument 'podcast' must be a character.")
   
-  page <- rvest::session(paste0(base_url(), 
-                                  podcast))
+  page <- rvest::session(paste0(base_url(), podcast))
   
   if (page$response$status_code != 200) stop("Wrong podcast name.")
   
@@ -69,13 +68,14 @@ get_metadata <- function(podcast, start_date = NULL, end_date = NULL,
   
   ## Read Previous Metadata ----
   
-  if (file.exists(file.path(path, paste0(podcast, ".csv")))) {
+  if (file.exists(file.path(path, "csv", paste0(podcast, ".csv")))) {
     
-    data <- utils::read.csv2(file.path(path, paste0(podcast, ".csv")))
+    data <- utils::read.csv2(file.path(path, "csv", paste0(podcast, ".csv")))
     
     if (sum(c("date", "title", "duration", "file_url") %in% colnames(data)) != 
         4)
-      stop("Malformed <", file.path(path, paste0(podcast, ".csv")), "> file.")
+      stop("Malformed <", file.path(path, "csv", paste0(podcast, ".csv")), 
+           "> file.")
     
     if (nrow(data)) {
       dates <- dates[as.Date(dates$short_date) > max(data$date), ]  
@@ -184,14 +184,15 @@ get_metadata <- function(podcast, start_date = NULL, end_date = NULL,
   
   if (nrow(data) > n_episodes) {
     
-    utils::write.csv2(data, file = file.path(path, paste0(podcast, ".csv")),
+    utils::write.csv2(data, file = file.path(path, "csv", 
+                                             paste0(podcast, ".csv")),
                       row.names = FALSE)
     
     usethis::ui_done(paste0("Adding ", 
                             "{usethis::ui_value(nrow(data) - n_episodes)} ",
                             "new episodes to ",
-                            "{usethis::ui_value(file.path(path, paste0(podcast, 
-                            \".csv\")))} "))
+                            "{usethis::ui_value(file.path(path, \"csv\", ",
+                            "paste0(podcast, \".csv\")))}"))
   } else {
     
     usethis::ui_oops("No new episode found.")

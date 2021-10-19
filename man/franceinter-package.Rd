@@ -6,9 +6,7 @@
 \alias{franceinter-package}
 \title{franceinter: Get France Inter Podcasts}
 \description{
-Gets France Inter metadata (i.e. date, title, and mp3 url) for a
-    selected podcasts (e.g. Tanguy Pastureau, Guillaume Meurice, Waly Dia, Sur 
-    les Epaules de Darwin, Ca peut pas faire de mal).
+Gets France Inter metadata (i.e. date, title, and mp3 url) for a selected podcasts (e.g. Tanguy Pastureau, Guillaume Meurice, Waly Dia, Sur les Epaules de Darwin, Ca peut pas faire de mal).
 }
 \seealso{
 Useful links:
@@ -19,7 +17,7 @@ Useful links:
 
 }
 \author{
-\strong{Maintainer}: Nicolas Casajus \email{nicolas.casajus@fondationbiodiversite.fr} (\href{https://orcid.org/0000-0002-5537-5294}{ORCID})
+\strong{Maintainer}: Nicolas Casajus \email{nicolas.casajus@gmail.com} (\href{https://orcid.org/0000-0002-5537-5294}{ORCID})
 
 }
 \keyword{internal}

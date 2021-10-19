@@ -15,7 +15,8 @@ get_mp3 <- function(data, podcast, path = ".") {
   
   if (!dir.exists(path)) stop("The path <", path, "> does not exist.")
   
-  dir.create(file.path(path, podcast), showWarnings = FALSE)
+  dir.create(file.path(path, "mp3", podcast), showWarnings = FALSE, 
+             recursive = TRUE)
   
   k <- 0
   
@@ -25,10 +26,11 @@ get_mp3 <- function(data, podcast, path = ".") {
       
       filename <- paste0(podcast, " - ", gsub("-", "", data$"date"[i]), ".mp3")
       
-      if (!file.exists(file.path(path, podcast, filename))) {
+      if (!file.exists(file.path(path, "mp3", podcast, filename))) {
         
         utils::download.file(url      = data$"file_url"[i], 
-                             destfile = file.path(path, podcast, filename))
+                             destfile = file.path(path, "mp3", podcast, 
+                                                  filename))
         
         k <- k + 1
       }
@@ -39,7 +41,8 @@ get_mp3 <- function(data, podcast, path = ".") {
     
     usethis::ui_done(paste0("New episodes: {usethis::ui_value(k)} ",
                             "mp3 downloaded in ",
-                            "{usethis::ui_value(file.path(path, podcast))} "))
+                            "{usethis::ui_value(file.path(path, \"mp3\", ", 
+                            "podcast))} "))
   } else {
     
     usethis::ui_oops("No new mp3 downloaded.")

@@ -34,11 +34,11 @@ all_m3u <- function(path = ".", na_rm = TRUE) {
   
   ## Read metadata ----
   
-  csvs <- list.files(path, pattern = "\\.csv$")
+  csvs <- list.files(file.path(path, "csv"), pattern = "\\.csv$")
   csvs <- csvs[-which(csvs %in% c("sur-les-epaules-de-darwin.csv", 
                                   "ca-peut-pas-faire-de-mal.csv"))]
   
-  data <- lapply(csvs, function(x) utils::read.csv2(file.path(path, x)))
+  data <- lapply(csvs, function(x) utils::read.csv2(file.path(path, "csv", x)))
   data <- do.call(rbind, data)
   
   
@@ -80,8 +80,8 @@ all_m3u <- function(path = ".", na_rm = TRUE) {
       file = file.path(path, "all-podcasts.m3u"))
   
   usethis::ui_done(paste0("Writing ",
-                          "{usethis::ui_value(file.path(path, 
-                            \"all-podcasts.m3u\"))} file"))
+                          "{usethis::ui_value(file.path(path, \"m3u\", ", 
+                          "\"all-podcasts.m3u\"))} file"))
   
   invisible(content)
 }

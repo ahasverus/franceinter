@@ -1,0 +1,30 @@
+name: Add new podcasts
+
+on:
+  schedule:
+  - cron: "0 10 * * *"
+
+jobs:
+  build:
+  
+    runs-on: macOS-latest
+    
+    env:
+      GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
+    
+    steps:
+      - uses: actions/checkout@v2
+
+      - uses: r-lib/actions/setup-r@master
+
+      - name: Get metadata
+        run: Rscript -e 'source("make.R")'
+
+      - name: Commit results
+        run: |
+          git config --local user.email "actions@github.com"
+          git config --local user.name "GitHub Actions"
+          git add -A
+          git commit -m 'Add new podcasts' || echo "No changes to commit"
+          git pull --rebase
+          git push origin || echo "No changes to commit"

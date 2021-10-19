@@ -9,12 +9,10 @@
 Check](https://github.com/ahasverus/franceinter/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/ahasverus/franceinter/actions/workflows/R-CMD-check.yaml)
 [![Website
 deployment](https://github.com/ahasverus/franceinter/actions/workflows/pkgdown.yaml/badge.svg)](https://github.com/ahasverus/franceinter/actions/workflows/pkgdown.yaml)
-[![Project Status:
-Concept](https://www.repostatus.org/badges/latest/concept.svg)](https://www.repostatus.org/#concept)
-[![LifeCycle](man/figures/lifecycle/lifecycle-experimental.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
+[![Update
+metadata](https://github.com/ahasverus/franceinter/actions/workflows/update-podcasts.yml/badge.svg)](https://github.com/ahasverus/franceinter/actions/workflows/update-podcasts.yml)
 [![License:
 MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://choosealicense.com/licenses/mit/)
-[![Dependencies](https://img.shields.io/badge/dependencies-3/40-green?style=flat)](#)
 <!-- badges: end -->
 
 The goal of the R package `franceinter` is to retrieve France Inter

@@ -22,16 +22,7 @@ devtools::load_all()
 
 ## Path(s) to Save Results ----
 
-if (length(grep("apple", sessionInfo()$platform))) {
-
-  path     <- file.path("", "Users", "nicolascasajus", "Nextcloud", "Podcasts",
-                        "Playlists")
-
-} else {
-
-  path     <- file.path("/", "home", "ahasverus", "Nextcloud", "Podcasts",
-                        "Playlists")
-}
+path <- here::here("inst")
 
 
 # path_mp3 <- file.path("", "Users", "nicolascasajus", "Nextcloud", "Podcasts")
@@ -60,7 +51,7 @@ for (i in 1:nrow(podcasts)) {
 
   ## Create Playlist ----
 
-  tab <- read.csv2(file.path(path, paste0(podcast$"label", ".csv")))
+  tab <- read.csv2(file.path(path, "csv", paste0(podcast$"label", ".csv")))
 
   franceinter::add_m3u(data    = tab,
                        podcast = podcast$"label",

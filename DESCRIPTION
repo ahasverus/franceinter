@@ -6,7 +6,7 @@ Authors@R: c(
     person(given   = "Nicolas",
            family  = "Casajus",
            role    = c("aut", "cre"),
-           email   = "nicolas.casajus@fondationbiodiversite.fr",
+           email   = "nicolas.casajus@gmail.com",
            comment = c(ORCID = "0000-0002-5537-5294")))
 Description: Gets France Inter metadata (i.e. date, title, and mp3 url) for a
     selected podcasts (e.g. Tanguy Pastureau, Guillaume Meurice, Waly Dia, Sur 
