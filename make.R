@@ -25,6 +25,11 @@ devtools::load_all()
 path <- here::here("inst")
 
 
+## System locale ----
+
+locale <- Sys.getlocale("LC_TIME")
+Sys.setlocale("LC_TIME", "fr_FR.UTF-8")
+
 # path_mp3 <- file.path("", "Users", "nicolascasajus", "Nextcloud", "Podcasts")
 # cover    <- file.path(path_mp3, "sur-les-epaules-de-darwin.jpg")
 
@@ -78,3 +83,8 @@ for (i in 1:nrow(podcasts)) {
 ## Create MEGA M3U file ----
 
 franceinter::all_m3u(path)
+
+
+## Restore locale ----
+
+Sys.setlocale("LC_TIME", locale)
