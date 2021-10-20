@@ -78,6 +78,15 @@ get_metadata <- function(podcast, start_date = NULL, end_date = NULL,
            "> file.")
     
     if (nrow(data)) {
+      
+      if (na_rm) {
+        
+        data <- data[!is.na(data$"date"), ]
+        data <- data[!is.na(data$"title"), ]
+        data <- data[!is.na(data$"duration"), ]
+        data <- data[!is.na(data$"file_url"), ]
+      }
+      
       dates <- dates[as.Date(dates$short_date) > max(data$date), ]  
     }
     
@@ -86,16 +95,6 @@ get_metadata <- function(podcast, start_date = NULL, end_date = NULL,
     data <- data.frame()
   }
   
-  
-  ## Remove Episodes with Incomplete Information ----
-  
-  if (na_rm && nrow(data)) {
-    
-    data <- data[!is.na(data$"date"), ]
-    data <- data[!is.na(data$"title"), ]
-    data <- data[!is.na(data$"duration"), ]
-    data <- data[!is.na(data$"file_url"), ]
-  }
   
   n_episodes <- nrow(data)
   
