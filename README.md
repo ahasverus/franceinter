@@ -1,7 +1,7 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# franceinter <img src="man/figures/hexsticker.png" height="120" align="right"/>
+# franceinter <img src="https://raw.githubusercontent.com/ahasverus/mystickers/master/pngs/franceinter.png" height="120" align="right"/>
 
 <!-- badges: start -->
 
@@ -81,7 +81,7 @@ with one row and the following columns: `podcast`, `start_date`, and
 
 Please cite this package as:
 
-> Casajus Nicolas (2021) franceinter: An R package to retrieve France
+> Casajus Nicolas (2022) franceinter: An R package to retrieve France
 > Inter podcasts. R package version 0.0.0.9000.
 
 ## Code of Conduct
