@@ -1,16 +1,18 @@
 Package: franceinter
 Type: Package
 Title: Get France Inter Podcasts
-Version: 0.0.0.9000
+Version: 1.0
 Authors@R: c(
     person(given   = "Nicolas",
            family  = "Casajus",
-           role    = c("aut", "cre"),
+           role    = c("aut", "cre", "cph"),
            email   = "nicolas.casajus@gmail.com",
            comment = c(ORCID = "0000-0002-5537-5294")))
-Description: Gets France Inter metadata (i.e. date, title, and mp3 url) for a
-    selected podcasts (e.g. Tanguy Pastureau, Guillaume Meurice, Waly Dia, Sur 
-    les Epaules de Darwin, Ca peut pas faire de mal).
+Description: Retrieves Radio France (France Inter, France Culture, etc.) 
+    podcasts metadata (date, title, mp3 url, and duration). User can easily 
+    download metadata for any podcast. The name of the podcast must be extracted
+    from the website URL (e.g. Le Moment Meurice must be written as 
+    le-moment-meurice).
 URL: https://github.com/ahasverus/franceinter
 BugReports: https://github.com/ahasverus/franceinter/issues
 License: MIT + file LICENSE

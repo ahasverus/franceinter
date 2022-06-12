@@ -15,8 +15,11 @@ metadata](https://github.com/ahasverus/franceinter/actions/workflows/update-podc
 MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://choosealicense.com/licenses/mit/)
 <!-- badges: end -->
 
-The goal of the R package `franceinter` is to retrieve France Inter
-podcasts information and to download MP3 episodes.
+The goal of the R package `franceinter` is to retrieve Radio France
+(France Inter, France Culture, etc.) podcasts metadata (date, title, mp3
+URL, and duration). User can easily download metadata for any podcast.
+The name of the podcast must be extracted from the website URL (e.g. Le
+Moment Meurice must be written as `le-moment-meurice`).
 
 ## Installation
 
@@ -39,50 +42,31 @@ library("franceinter")
 ``` r
 ## Create a folder to store results ----
 
-path <- "Podcasts/"
-dir.create(path)
-
-
-## Get podcasts name ----
-
-podcasts <- list_podcasts()
-podcast  <- podcasts[3, ]
-
-##                    podcast start_date end_date
-## 3 la-chronique-de-waly-dia 2020-10-05     <NA>
+path <- here::here("radiofrance")
+dir.create(path, recursive = TRUE)
 
 
 ## Retrieve episodes information ----
 
-tab <- get_metadata(podcast    = podcast$"podcast", 
-                    start_date = podcast$"start_date", 
-                    end_date   = podcast$"end_date", 
-                    path = path)
-
-## ✓ Adding 15 new episodes to './Podcasts/la-chronique-de-waly-dia.csv' 
+tab <- get_metadata("la-chronique-de-waly-dia", path)
 
 
 ## Create a M3U playlist ----
 
-add_m3u(tab, podcast$"podcast", path = path)
-
-## ✓ Writing './Podcasts/la-chronique-de-waly-dia.m3u' file
+add_m3u(tab, "la-chronique-de-waly-dia", path)
 ```
 
-The `m3u` file can be open with VLC to stream all episodes. To add new
-episodes, just re-run this block code. A function to download mp3 will
-be available soon.
-
-Users can add custom (France Inter) podcasts by creating a data frame
-with one row and the following columns: `podcast`, `start_date`, and
-`end_date` (can be `NA`).
+The `m3u` file can be open with
+[VLC](https://www.videolan.org/vlc/index.en.html) to stream all
+episodes. To retrieve new episodes, just re-run the functions
+`get_metadata()` and `add_m3u()`.
 
 ## Citation
 
 Please cite this package as:
 
-> Casajus Nicolas (2022) franceinter: An R package to retrieve France
-> Inter podcasts. R package version 0.0.0.9000.
+> Casajus N (2022) franceinter: An R package to retrieve Radio France
+> podcasts metadata. R package version 1.0.
 
 ## Code of Conduct
 
