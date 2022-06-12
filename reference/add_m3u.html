@@ -63,17 +63,26 @@ For more information: <a href="https://en.wikipedia.org/wiki/M3U" class="externa
     <h2>Arguments</h2>
     <dl><dt>data</dt>
 <dd><p>a data frame created by <code><a href="get_metadata.html">get_metadata()</a></code>.</p></dd>
+
+
 <dt>podcast</dt>
 <dd><p>a character of length 1. The name of the M3U file.</p></dd>
+
+
 <dt>path</dt>
 <dd><p>the path to save the M3U file (must exist).</p></dd>
+
+
 <dt>na_rm</dt>
 <dd><p>a logical. If <code>TRUE</code> (default) remove episodes with incomplete
 information.</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>The content of the M3U file (optional).</p>
+    
+
+<p>The content of the M3U file (optional).</p>
     </div>
 
     <div id="ref-examples">
@@ -84,7 +93,7 @@ information.</p></dd>
 <span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/files2.html" class="external-link">dir.create</a></span><span class="op">(</span><span class="va">path</span><span class="op">)</span></span>
 <span class="r-in"></span>
 <span class="r-in"><span class="co">## Get podcasts name ----</span></span>
-<span class="r-in"><span class="va">podcasts</span> <span class="op">&lt;-</span> <span class="fu"><a href="list_podcasts.html">list_podcasts</a></span><span class="op">(</span><span class="op">)</span></span>
+<span class="r-in"><span class="va">podcasts</span> <span class="op">&lt;-</span> <span class="fu">list_podcasts</span><span class="op">(</span><span class="op">)</span></span>
 <span class="r-in"><span class="va">podcast</span>  <span class="op">&lt;-</span> <span class="va">podcasts</span><span class="op">[</span><span class="fl">3</span>, <span class="op">]</span></span>
 <span class="r-in"></span>
 <span class="r-in"><span class="co">## Retrieve episodes information ----</span></span>
@@ -112,7 +121,7 @@ information.</p></dd>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
 </div>
 
       </footer></div>

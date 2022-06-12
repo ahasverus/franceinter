@@ -54,34 +54,29 @@ only new episodes will be treated.</p>
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">get_metadata</span><span class="op">(</span>
-  <span class="va">podcast</span>,
-  start_date <span class="op">=</span> <span class="cn">NULL</span>,
-  end_date <span class="op">=</span> <span class="cn">NULL</span>,
-  path <span class="op">=</span> <span class="st">"."</span>,
-  na_rm <span class="op">=</span> <span class="cn">TRUE</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">get_metadata</span><span class="op">(</span><span class="va">podcast</span>, path <span class="op">=</span> <span class="st">"."</span>, na_rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>podcast</dt>
 <dd><p>a character of length 1. The name of the M3U file.</p></dd>
-<dt>start_date</dt>
-<dd><p>a character of length 1. The date of the oldest episode
-to retrieve. If <code>NULL</code> the <code>"2010-01-01"</code> will be used.</p></dd>
-<dt>end_date</dt>
-<dd><p>a character of length 1. The date of the most recent episode
-to retrieve. If <code>NULL</code> the current date will be used.</p></dd>
+
+
 <dt>path</dt>
 <dd><p>the path to save metadata as CSV (must exist).</p></dd>
+
+
 <dt>na_rm</dt>
 <dd><p>a logical. If <code>TRUE</code> (default) remove episodes with incomplete
 information.</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>A four-columns data frame with:</p><ul><li><p><code>date</code>: the date of the episode;</p></li>
+    
+
+<p>A four-columns data frame with:</p><ul><li><p><code>date</code>: the date of the episode;</p></li>
 <li><p><code>title</code>: the title of the episode;</p></li>
 <li><p><code>duration</code>: the duration of the episode (in seconds);</p></li>
 <li><p><code>file_url</code>: the URL of the mp3.</p></li>
@@ -95,14 +90,11 @@ information.</p></dd>
 <span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/files2.html" class="external-link">dir.create</a></span><span class="op">(</span><span class="va">path</span><span class="op">)</span></span>
 <span class="r-in"></span>
 <span class="r-in"><span class="co">## Get podcasts name ----</span></span>
-<span class="r-in"><span class="va">podcasts</span> <span class="op">&lt;-</span> <span class="fu"><a href="list_podcasts.html">list_podcasts</a></span><span class="op">(</span><span class="op">)</span></span>
+<span class="r-in"><span class="va">podcasts</span> <span class="op">&lt;-</span> <span class="fu">list_podcasts</span><span class="op">(</span><span class="op">)</span></span>
 <span class="r-in"><span class="va">podcast</span>  <span class="op">&lt;-</span> <span class="va">podcasts</span><span class="op">[</span><span class="fl">3</span>, <span class="op">]</span></span>
 <span class="r-in"></span>
 <span class="r-in"><span class="co">## Retrieve episodes information ----</span></span>
-<span class="r-in"><span class="va">tab</span> <span class="op">&lt;-</span> <span class="fu">get_metadata</span><span class="op">(</span>podcast    <span class="op">=</span> <span class="va">podcast</span><span class="op">$</span><span class="st">"podcast"</span>, </span>
-<span class="r-in">                    start_date <span class="op">=</span> <span class="va">podcast</span><span class="op">$</span><span class="st">"start_date"</span>, </span>
-<span class="r-in">                    end_date   <span class="op">=</span> <span class="va">podcast</span><span class="op">$</span><span class="st">"end_date"</span>, </span>
-<span class="r-in">                    path <span class="op">=</span> <span class="va">path</span><span class="op">)</span></span>
+<span class="r-in"><span class="va">tab</span> <span class="op">&lt;-</span> <span class="fu">get_metadata</span><span class="op">(</span><span class="st">"un-ete-avec-homere"</span>, path <span class="op">=</span> <span class="st">"inst"</span><span class="op">)</span></span>
 <span class="r-in"><span class="op">}</span></span>
 </code></pre></div>
     </div>
@@ -118,7 +110,7 @@ information.</p></dd>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
 </div>
 
       </footer></div>

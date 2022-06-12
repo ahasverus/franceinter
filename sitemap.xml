@@ -19,9 +19,6 @@
     <loc>/reference/add_m3u.html</loc>
   </url>
   <url>
-    <loc>/reference/all_m3u.html</loc>
-  </url>
-  <url>
     <loc>/reference/franceinter-package.html</loc>
   </url>
   <url>
@@ -29,8 +26,5 @@
   </url>
   <url>
     <loc>/reference/index.html</loc>
-  </url>
-  <url>
-    <loc>/reference/list_podcasts.html</loc>
   </url>
 </urlset>
