@@ -92,7 +92,7 @@ check_arg_radio <- function(radio) {
   valid_radios <- c("franceinter", "franceinfo", "francebleu", "franceculture",
                     "francemusique", "fip", "mouv")
   
-  valid_radios_msg <- paste0(valid_radios, collapse = "' '")
+  valid_radios_msg <- paste0(valid_radios, collapse = "', '")
   valid_radios_msg <- paste0("'", valid_radios_msg, "'")
   
   if (!(radio %in% valid_radios)) {

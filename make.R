@@ -50,7 +50,7 @@ for (podcast in podcasts) {
 
   ## Retrieve Metadata ----
 
-  get_metadata(podcast, path, na_rm = TRUE)
+  get_metadata(podcast, radio = "franceinter", path, na_rm = TRUE)
 
 
   ## Create M3U Playlist ----
