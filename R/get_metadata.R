@@ -1,13 +1,13 @@
-#' Retrieve Podcast Information
+#' Retrieve podcast metadata
 #'
 #' @description 
-#' Retrieves podcast information (i.e. date, title, mp3 duration and url).
-#' Information will be saved as a CSV file. Each time this function is called
-#' only new episodes will be treated.
+#' Retrieves podcast metadata (i.e. date, title, mp3 duration and URL).
+#' Information will be saved in a CSV file. Each time this function is called
+#' only new episodes will be added.
 #' 
-#' @param podcast a character of length 1. The name of the M3U file.
+#' @param podcast a character of length 1. The name of the podcast.
 #'   
-#' @param path the path to save metadata as CSV (must exist).
+#' @param path a character of length 1. The folder to save metadata as CSV.
 #' 
 #' @param na_rm a logical. If `TRUE` (default) remove episodes with incomplete 
 #'   information.
@@ -23,14 +23,13 @@
 #' @examples
 #' \dontrun{
 #' ## Create a folder to store results ----
-#' path <- "Podcasts/"
+#' 
+#' path <- "Podcasts"
 #' dir.create(path)
 #' 
-#' ## Get podcasts name ----
-#' podcasts <- list_podcasts()
-#' podcast  <- podcasts[3, ]
 #' 
 #' ## Retrieve episodes information ----
+#' 
 #' tab <- get_metadata("un-ete-avec-homere", path = "inst")
 #' }
 

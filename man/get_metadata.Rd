@@ -2,14 +2,14 @@
 % Please edit documentation in R/get_metadata.R
 \name{get_metadata}
 \alias{get_metadata}
-\title{Retrieve Podcast Information}
+\title{Retrieve podcast metadata}
 \usage{
 get_metadata(podcast, path = ".", na_rm = TRUE)
 }
 \arguments{
-\item{podcast}{a character of length 1. The name of the M3U file.}
+\item{podcast}{a character of length 1. The name of the podcast.}
 
-\item{path}{the path to save metadata as CSV (must exist).}
+\item{path}{a character of length 1. The folder to save metadata as CSV.}
 
 \item{na_rm}{a logical. If \code{TRUE} (default) remove episodes with incomplete
 information.}
@@ -24,21 +24,20 @@ A four-columns data frame with:
 }
 }
 \description{
-Retrieves podcast information (i.e. date, title, mp3 duration and url).
-Information will be saved as a CSV file. Each time this function is called
-only new episodes will be treated.
+Retrieves podcast metadata (i.e. date, title, mp3 duration and URL).
+Information will be saved in a CSV file. Each time this function is called
+only new episodes will be added.
 }
 \examples{
 \dontrun{
 ## Create a folder to store results ----
-path <- "Podcasts/"
+
+path <- "Podcasts"
 dir.create(path)
 
-## Get podcasts name ----
-podcasts <- list_podcasts()
-podcast  <- podcasts[3, ]
 
 ## Retrieve episodes information ----
+
 tab <- get_metadata("un-ete-avec-homere", path = "inst")
 }
 }

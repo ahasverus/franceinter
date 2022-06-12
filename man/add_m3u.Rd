@@ -7,11 +7,11 @@
 add_m3u(data, podcast, path = ".", na_rm = TRUE)
 }
 \arguments{
-\item{data}{a data frame created by \code{get_metadata()}.}
+\item{data}{a \code{data.frame} created by \code{get_metadata()}.}
 
-\item{podcast}{a character of length 1. The name of the M3U file.}
+\item{podcast}{a character of length 1. The name of the podcast.}
 
-\item{path}{the path to save the M3U file (must exist).}
+\item{path}{a character of length 1. The folder to save the M3U file.}
 
 \item{na_rm}{a logical. If \code{TRUE} (default) remove episodes with incomplete
 information.}
@@ -28,21 +28,19 @@ For more information: \url{https://en.wikipedia.org/wiki/M3U}
 \examples{
 \dontrun{
 ## Create a folder to store results ----
-path <- "Podcasts/"
+
+path <- "Podcasts"
 dir.create(path)
 
-## Get podcasts name ----
-podcasts <- list_podcasts()
-podcast  <- podcasts[3, ]
 
 ## Retrieve episodes information ----
-tab <- get_metadata(podcast    = podcast$"podcast",
-                    start_date = podcast$"start_date",
-                    end_date   = podcast$"end_date",
-                    path = path)
+
+tab <- get_metadata("un-ete-avec-homere", path)
+
 
 ## Create a M3U playlist ----
-x <- add_m3u(tab, podcast$"podcast", path = path)
+
+x <- add_m3u(tab, "un-ete-avec-homere", path)
 
 cat(paste0(x, collapse = "\n"))
 }

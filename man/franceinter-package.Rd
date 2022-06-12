@@ -6,7 +6,7 @@
 \alias{franceinter-package}
 \title{franceinter: Get France Inter Podcasts}
 \description{
-Gets France Inter metadata (i.e. date, title, and mp3 url) for a selected podcasts (e.g. Tanguy Pastureau, Guillaume Meurice, Waly Dia, Sur les Epaules de Darwin, Ca peut pas faire de mal).
+Retrieves Radio France (France Inter, France Culture, etc.) podcasts metadata (date, title, mp3 url, and duration). User can easily download metadata for any podcast. The name of the podcast must be extracted from the website URL (e.g. Le Moment Meurice must be written as le-moment-meurice).
 }
 \seealso{
 Useful links:
@@ -17,7 +17,7 @@ Useful links:
 
 }
 \author{
-\strong{Maintainer}: Nicolas Casajus \email{nicolas.casajus@gmail.com} (\href{https://orcid.org/0000-0002-5537-5294}{ORCID})
+\strong{Maintainer}: Nicolas Casajus \email{nicolas.casajus@gmail.com} (\href{https://orcid.org/0000-0002-5537-5294}{ORCID}) [copyright holder]
 
 }
 \keyword{internal}
