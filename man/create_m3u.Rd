@@ -36,5 +36,5 @@ cat(paste0(x, collapse = "\n"))
 }
 }
 \seealso{
-get_metadata()
+\code{\link[=get_metadata]{get_metadata()}}
 }

@@ -40,5 +40,5 @@ tab <- get_metadata("un-ete-avec-homere", radio = "franceinter")
 }
 }
 \seealso{
-create_m3u()
+\code{\link[=create_m3u]{create_m3u()}}
 }
