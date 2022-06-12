@@ -1,7 +1,7 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# franceinter <img src="https://raw.githubusercontent.com/ahasverus/mystickers/master/pngs/franceinter.png" height="120" align="right"/>
+# franceinter <img src="https://raw.githubusercontent.com/ahasverus/mystickers/master/pngs/franceinter.png" height="120px" align="right" style="float:right; height:120px;"/>
 
 <!-- badges: start -->
 
