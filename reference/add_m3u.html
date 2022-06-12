@@ -20,7 +20,7 @@ For more information: https://en.wikipedia.org/wiki/M3U"><!-- mathjax --><script
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">franceinter</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.0.0.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.0</span>
       </span>
     </div>
 
@@ -62,15 +62,15 @@ For more information: <a href="https://en.wikipedia.org/wiki/M3U" class="externa
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>data</dt>
-<dd><p>a data frame created by <code><a href="get_metadata.html">get_metadata()</a></code>.</p></dd>
+<dd><p>a <code>data.frame</code> created by <code><a href="get_metadata.html">get_metadata()</a></code>.</p></dd>
 
 
 <dt>podcast</dt>
-<dd><p>a character of length 1. The name of the M3U file.</p></dd>
+<dd><p>a character of length 1. The name of the podcast.</p></dd>
 
 
 <dt>path</dt>
-<dd><p>the path to save the M3U file (must exist).</p></dd>
+<dd><p>a character of length 1. The folder to save the M3U file.</p></dd>
 
 
 <dt>na_rm</dt>
@@ -89,21 +89,19 @@ information.</p></dd>
     <h2>Examples</h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span>
 <span class="r-in"><span class="co">## Create a folder to store results ----</span></span>
-<span class="r-in"><span class="va">path</span> <span class="op">&lt;-</span> <span class="st">"Podcasts/"</span></span>
+<span class="r-in"></span>
+<span class="r-in"><span class="va">path</span> <span class="op">&lt;-</span> <span class="st">"Podcasts"</span></span>
 <span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/files2.html" class="external-link">dir.create</a></span><span class="op">(</span><span class="va">path</span><span class="op">)</span></span>
 <span class="r-in"></span>
-<span class="r-in"><span class="co">## Get podcasts name ----</span></span>
-<span class="r-in"><span class="va">podcasts</span> <span class="op">&lt;-</span> <span class="fu">list_podcasts</span><span class="op">(</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">podcast</span>  <span class="op">&lt;-</span> <span class="va">podcasts</span><span class="op">[</span><span class="fl">3</span>, <span class="op">]</span></span>
 <span class="r-in"></span>
 <span class="r-in"><span class="co">## Retrieve episodes information ----</span></span>
-<span class="r-in"><span class="va">tab</span> <span class="op">&lt;-</span> <span class="fu"><a href="get_metadata.html">get_metadata</a></span><span class="op">(</span>podcast    <span class="op">=</span> <span class="va">podcast</span><span class="op">$</span><span class="st">"podcast"</span>,</span>
-<span class="r-in">                    start_date <span class="op">=</span> <span class="va">podcast</span><span class="op">$</span><span class="st">"start_date"</span>,</span>
-<span class="r-in">                    end_date   <span class="op">=</span> <span class="va">podcast</span><span class="op">$</span><span class="st">"end_date"</span>,</span>
-<span class="r-in">                    path <span class="op">=</span> <span class="va">path</span><span class="op">)</span></span>
+<span class="r-in"></span>
+<span class="r-in"><span class="va">tab</span> <span class="op">&lt;-</span> <span class="fu"><a href="get_metadata.html">get_metadata</a></span><span class="op">(</span><span class="st">"un-ete-avec-homere"</span>, <span class="va">path</span><span class="op">)</span></span>
+<span class="r-in"></span>
 <span class="r-in"></span>
 <span class="r-in"><span class="co">## Create a M3U playlist ----</span></span>
-<span class="r-in"><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu">add_m3u</span><span class="op">(</span><span class="va">tab</span>, <span class="va">podcast</span><span class="op">$</span><span class="st">"podcast"</span>, path <span class="op">=</span> <span class="va">path</span><span class="op">)</span></span>
+<span class="r-in"></span>
+<span class="r-in"><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu">add_m3u</span><span class="op">(</span><span class="va">tab</span>, <span class="st">"un-ete-avec-homere"</span>, <span class="va">path</span><span class="op">)</span></span>
 <span class="r-in"></span>
 <span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="va">x</span>, collapse <span class="op">=</span> <span class="st">"\n"</span><span class="op">)</span><span class="op">)</span></span>
 <span class="r-in"><span class="op">}</span></span>
