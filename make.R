@@ -36,28 +36,47 @@ Sys.setlocale("LC_TIME", "fr_FR.UTF-8")
 
 ## List podcast names ----
 
-podcasts <- c("tanguy-pastureau-maltraite-l-info", "le-moment-meurice", 
-              "la-chronique-de-waly-dia", "la-chanson-de-frederic-fromet", 
-              "la-chronique-d-aymeric-lompret", "la-chronique-de-constance", 
+podcasts <- c("tanguy-pastureau-maltraite-l-info", 
+              "le-moment-meurice", 
+              "la-chronique-de-waly-dia", 
+              "la-chanson-de-frederic-fromet", 
+              "la-chronique-d-aymeric-lompret", 
               "la-drole-d-humeur-de-guillermo-guiz", 
-              "la-chronique-de-djamil-le-shlag")
+              "le-journal-de-presque-17h17",
+              "la-chronique-de-djamil-le-shlag",
+              "la-methode-scientifique",
+              "carbone-14-le-magazine-de-l-archeologie",
+              "fictions-samedi-noir",
+              "la-conversation-scientifique")
 
+radios   <- c("franceinter",
+              "franceinter",
+              "franceinter",
+              "franceinter",
+              "franceinter",
+              "franceinter",
+              "franceinter",
+              "franceinter",
+              "franceculture",
+              "franceculture",
+              "franceculture",
+              "franceculture")
 
-for (podcast in podcasts) {
+for (i in 1:length(podcasts)) {
 
-  cat("\n*** ", podcast, " ***\n")
+  cat("\n*** ", podcasts[i], " ***\n")
 
 
   ## Retrieve Metadata ----
 
-  get_metadata(podcast, radio = "franceinter", path, na_rm = TRUE)
+  get_metadata(podcasts[i], radio = radios[i], path, na_rm = TRUE)
 
 
   ## Create M3U Playlist ----
 
-  tab <- read.csv2(file.path(path, "csv", paste0(podcast, ".csv")))
+  tab <- read.csv2(file.path(path, "csv", paste0(podcasts[i], ".csv")))
 
-  create_m3u(tab, podcast, path)
+  create_m3u(tab, podcasts[i], path)
 }
 
 

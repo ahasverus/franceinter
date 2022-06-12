@@ -24,7 +24,7 @@
 #' 
 #' @export
 #'
-#' @seealso create_m3u
+#' @seealso create_m3u()
 #'
 #' @examples
 #' \dontrun{

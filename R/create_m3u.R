@@ -16,7 +16,7 @@
 #'
 #' @export
 #' 
-#' @seealso get_metadata
+#' @seealso get_metadata()
 #'
 #' @examples
 #' \dontrun{

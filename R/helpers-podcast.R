@@ -83,28 +83,38 @@ check_for_new_episodes <- function(podcast, radio, path, limit, na_rm) {
     
     if (html_page$"response"$"status_code" != 200) stop("Error 404")
     
-    content <- rvest::html_elements(html_page, ".CardDetails-title")
+    content <- rvest::html_elements(html_page, ".CardDetails")
     
     if (length(content)) {
       
-      links <- rvest::html_elements(content, "a")
+      dat <- data.frame()
       
-      page_links <- rvest::html_attr(links, "href")
-      page_links <- paste0("https://www.radiofrance.fr", page_links)
-      
-      page_titles <- rvest::html_text(links)
-      page_titles <- gsub("^\\s{1,}|\\s{1,}$", "", page_titles)
-      page_titles <- gsub("\\s+", " ", page_titles)
-      
-      content <- rvest::html_elements(html_page, "time")
-      page_dates <- rvest::html_text(content)
-      page_dates <- gsub("\\n", "", page_dates)
-      page_dates <- gsub("^\\s{1,}|\\s{1,}$", "", page_dates)
-      page_dates <- gsub("\\s+", " ", page_dates)
-      
-      dat <- data.frame("title" = page_titles,
-                        "date"  = page_dates,
-                        "url"   = page_links)
+      for (k in 1:length(content)) {
+        
+        card  <- rvest::html_elements(content[k], ".CardDetails-title")
+        links <- rvest::html_elements(card, "a")
+        
+        if (length(links)) {
+          
+          page_links <- rvest::html_attr(links, "href")
+          page_links <- paste0("https://www.radiofrance.fr", page_links)
+          
+          page_titles <- rvest::html_text(links)
+          page_titles <- gsub("^\\s{1,}|\\s{1,}$", "", page_titles)
+          page_titles <- gsub("\\s+", " ", page_titles)
+          
+          page_dates <- rvest::html_elements(content[k], "time")
+          page_dates <- rvest::html_text(page_dates)
+          page_dates <- gsub("\\n", "", page_dates)
+          page_dates <- gsub("^\\s{1,}|\\s{1,}$", "", page_dates)
+          page_dates <- gsub("\\s+", " ", page_dates)
+          
+          tmp <- data.frame("title" = page_titles,
+                            "date"  = page_dates,
+                            "url"   = page_links)
+          dat <- rbind(dat, tmp)
+        }
+      }
       
       dat <- check_for_dates(dat, limit)
       
@@ -152,11 +162,20 @@ get_new_episodes <- function(data, podcast) {
       content <- jsonlite::fromJSON(rvest::html_text(content))
       content <- jsonlite::fromJSON(content$"body")
       
+      episode_title <- content$"content"$"title"
+      if (is.null(episode_title)) episode_title <- NA
+      
+      episode_duration <- content$"content"$"manifestations"$"duration"
+      if (is.null(episode_duration)) episode_duration <- NA
+      
+      episode_file_url <- content$"content"$"manifestations"$"url"
+      if (is.null(episode_file_url)) episode_file_url <- NA
+      
       tmp <- data.frame(
-        date     = data[i, "date"],
-        title    = content$"content"$"title",
-        duration = content$"content"$"manifestations"$"duration",
-        file_url = content$"content"$"manifestations"$"url"
+        "date"     = data[i, "date"],
+        "title"    = episode_title,
+        "duration" = episode_duration,
+        "file_url" = episode_file_url
       )
       
       new_episodes <- rbind(new_episodes, tmp)
