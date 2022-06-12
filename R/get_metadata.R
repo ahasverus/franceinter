@@ -6,6 +6,10 @@
 #' only new episodes will be added.
 #' 
 #' @param podcast a character of length 1. The name of the podcast.
+#' 
+#' @param radio a character of length 1. The name of the radio. Must one among
+#'   `franceinter` (default), `franceinfo`, `francebleu`, `franceculture`,
+#'   `francemusique`, `fip`, or `mouv`.
 #'   
 #' @param path a character of length 1. The folder to save metadata as CSV.
 #' 
@@ -20,32 +24,30 @@
 #' 
 #' @export
 #'
+#' @seealso create_m3u
+#'
 #' @examples
 #' \dontrun{
-#' ## Create a folder to store results ----
+#' ## Retrieve episodes metadata ----
 #' 
-#' path <- "Podcasts"
-#' dir.create(path)
-#' 
-#' 
-#' ## Retrieve episodes information ----
-#' 
-#' tab <- get_metadata("un-ete-avec-homere", path = "inst")
+#' tab <- get_metadata("un-ete-avec-homere", radio = "franceinter")
 #' }
 
-get_metadata <- function(podcast, path = ".", na_rm = TRUE) {
+get_metadata <- function(podcast, radio = "franceinter", path = ".", 
+                         na_rm = TRUE) {
   
   
   ## Check Inputs ----
   
   check_arg_path(path)
+  check_arg_radio(radio)
   check_arg_na_rm(na_rm)
   check_arg_podcast(podcast)
   
   
   ## Check podcast name (is podcast home page URL exist?) ----
   
-  check_podcast_name(podcast)
+  check_podcast_name(podcast, radio)
   
   
   ## Read Previous Metadata ----
@@ -66,7 +68,7 @@ get_metadata <- function(podcast, path = ".", na_rm = TRUE) {
   
   ## Check for new episodes ----
   
-  podcasts <- check_for_new_episodes(podcast, path, start_date, na_rm)
+  podcasts <- check_for_new_episodes(podcast, radio, path, start_date, na_rm)
   
   
   ## Get new episodes ----

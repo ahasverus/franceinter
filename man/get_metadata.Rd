@@ -4,10 +4,14 @@
 \alias{get_metadata}
 \title{Retrieve podcast metadata}
 \usage{
-get_metadata(podcast, path = ".", na_rm = TRUE)
+get_metadata(podcast, radio = "franceinter", path = ".", na_rm = TRUE)
 }
 \arguments{
 \item{podcast}{a character of length 1. The name of the podcast.}
+
+\item{radio}{a character of length 1. The name of the radio. Must one among
+\code{franceinter} (default), \code{franceinfo}, \code{francebleu}, \code{franceculture},
+\code{francemusique}, \code{fip}, or \code{mouv}.}
 
 \item{path}{a character of length 1. The folder to save metadata as CSV.}
 
@@ -30,14 +34,11 @@ only new episodes will be added.
 }
 \examples{
 \dontrun{
-## Create a folder to store results ----
+## Retrieve episodes metadata ----
 
-path <- "Podcasts"
-dir.create(path)
-
-
-## Retrieve episodes information ----
-
-tab <- get_metadata("un-ete-avec-homere", path = "inst")
+tab <- get_metadata("un-ete-avec-homere", radio = "franceinter")
 }
+}
+\seealso{
+create_m3u
 }

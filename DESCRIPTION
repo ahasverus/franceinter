@@ -1,6 +1,6 @@
-Package: franceinter
+Package: radiofrance
 Type: Package
-Title: Get France Inter Podcasts
+Title: Get Radio France Podcasts
 Version: 1.0
 Authors@R: c(
     person(given   = "Nicolas",
@@ -13,18 +13,15 @@ Description: Retrieves Radio France (France Inter, France Culture, etc.)
     download metadata for any podcast. The name of the podcast must be extracted
     from the website URL (e.g. Le Moment Meurice must be written as 
     le-moment-meurice).
-URL: https://github.com/ahasverus/franceinter
-BugReports: https://github.com/ahasverus/franceinter/issues
+URL: https://github.com/ahasverus/radiofrance
+BugReports: https://github.com/ahasverus/radiofrance/issues
 License: MIT + file LICENSE
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.2.0
 Imports: 
-    here,
     jsonlite,
     messages,
-    pkgload,
-    remotes,
     rvest,
     utils
 Remotes: 

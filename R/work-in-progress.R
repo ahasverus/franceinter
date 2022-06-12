@@ -1,3 +1,5 @@
+#' @noRd
+
 add_cover <- function(path, cover, album, artist, data) {
   
   filenames <- list.files(path, pattern = "mp3$")
@@ -57,8 +59,8 @@ add_cover <- function(path, cover, album, artist, data) {
         meta_keys   <- c(meta_keys, "copyright")
         meta_values <- c(meta_values, "Radio France")
       }
-
-
+      
+      
       pos <- which(meta_keys == "encoded_by")
       if (length(pos)) {
         meta_values[pos] <- "Radio France"
@@ -74,7 +76,7 @@ add_cover <- function(path, cover, album, artist, data) {
         meta_keys   <- c(meta_keys, "genre")
         meta_values <- c(meta_values, "Podcast")
       }
-
+      
       short_date <- strsplit(filenames[i], " - |\\.mp3")[[1]][2]
       sop <- which(gsub("-", "", data$date) == short_date)
       
@@ -114,6 +116,62 @@ add_cover <- function(path, cover, album, artist, data) {
   }
   
   if (file.exists("tempfile")) system("rm tempfile")
+  
+  invisible(NULL)
+}
+
+
+
+#' @noRd
+
+get_mp3 <- function(data, podcast, path = ".") {
+  
+  if (missing(data))          stop("Argument 'data' is required.")
+  if (missing(podcast))       stop("Argument 'podcast' is required.")
+  
+  if (is.null(data))          stop("Argument 'data' is required.")
+  if (is.null(podcast))       stop("Argument 'podcast' is required.")
+  
+  if (!is.data.frame(data))   stop("Argument 'data' must be a data frame.")
+  if (!is.character(podcast)) stop("Argument 'podcast' must be a character.")
+  
+  if (sum(c("date", "title", "duration", "file_url") %in% colnames(data)) != 4)
+    stop("Argument 'data' must contain the following variables: 'date', ",
+         "'title', 'duration', and 'file_url'.")
+  
+  if (!dir.exists(path)) stop("The path <", path, "> does not exist.")
+  
+  dir.create(file.path(path, "mp3", podcast), showWarnings = FALSE, 
+             recursive = TRUE)
+  
+  k <- 0
+  
+  if (nrow(data)) {
+    
+    for (i in 1:nrow(data)) {
+      
+      filename <- paste0(podcast, " - ", gsub("-", "", data$"date"[i]), ".mp3")
+      
+      if (!file.exists(file.path(path, "mp3", podcast, filename))) {
+        
+        utils::download.file(url      = data$"file_url"[i], 
+                             destfile = file.path(path, "mp3", podcast, 
+                                                  filename))
+        
+        k <- k + 1
+      }
+    }
+  }
+  
+  if (k > 0) {
+    
+    messages::msg_done("New episodes:", messages::msg_value(k),
+                       "mp3 downloaded in",
+                       messages::msg_value(file.path(path, "mp3")))
+  } else {
+    
+    messages::msg_oops("No new mp3 downloaded.")
+  }
   
   invisible(NULL)
 }

@@ -1,45 +1,40 @@
-#' @title franceinter: A Research Compendium
+#' @title radiofrance: Get Radio France Podcasts
 #'
 #' @description
-#' A paragraph providing a full description of the project and describing each
-#' step of the workflow.
+#' Retrieves Radio France (France Inter, France Culture, etc.) podcasts 
+#' metadata (date, title, mp3 url, and duration). User can easily download 
+#' metadata for any podcast. The name of the podcast must be extracted from the 
+#' website URL (e.g. Le Moment Meurice must be written as le-moment-meurice).
 #'
-#' @author Nicolas Casajus \email{nicolas.casajus@fondationbiodiversite.fr}
+#' @author Nicolas Casajus \email{nicolas.casajus@@fondationbiodiversite.fr}
 #'
-#' @date 2021/05/07
+#' @date 2022/06/22
 
 
 
-## Install Dependencies (listed in DESCRIPTION) ----
+## Install dependencies (listed in DESCRIPTION) ----
 
-if (!("remotes" %in% utils::installed.packages()[ , 1])) {
-  install.packages("remotes")
-}
-
+install.packages(c("here", "pkgload", "remotes"))
 remotes::install_deps(upgrade = "never")
 
 
-## Load Project Addins (R Functions and Packages) ----
+## Load project ----
 
 pkgload::load_all(here::here())
 
 
-## Path to Save Results ----
+## Path to save results ----
 
 path <- here::here("inst")
 
 
-## System locale ----
+## Change system locale ----
 
 locale <- Sys.getlocale("LC_TIME")
 Sys.setlocale("LC_TIME", "fr_FR.UTF-8")
 
 
-# path_mp3 <- file.path("", "Users", "nicolascasajus", "Nextcloud", "Podcasts")
-# cover    <- file.path(path_mp3, "sur-les-epaules-de-darwin.jpg")
-
-
-## Get Podcast Info ----
+## List podcast names ----
 
 podcasts <- c("tanguy-pastureau-maltraite-l-info", "le-moment-meurice", 
               "la-chronique-de-waly-dia", "la-chanson-de-frederic-fromet", 
@@ -47,42 +42,25 @@ podcasts <- c("tanguy-pastureau-maltraite-l-info", "le-moment-meurice",
               "la-drole-d-humeur-de-guillermo-guiz", 
               "la-chronique-de-djamil-le-shlag")
 
-for (i in 1:length(podcasts)) {
 
-  podcast  <- podcasts[i]
+for (podcast in podcasts) {
 
   cat("\n*** ", podcast, " ***\n")
 
 
   ## Retrieve Metadata ----
 
-  franceinter::get_metadata(podcast, path, na_rm = TRUE)
+  get_metadata(podcast, path, na_rm = TRUE)
 
 
   ## Create M3U Playlist ----
 
   tab <- read.csv2(file.path(path, "csv", paste0(podcast, ".csv")))
 
-  franceinter::add_m3u(tab, podcast, path)
-
-
-  ## Download mp3 ----
-
-  # franceinter::get_mp3(data    = tab,
-  #                      podcast = podcast$"podcast",
-  #                      path    = path_mp3)
-
-
-  ## Add Cover ----
-
-  # franceinter::add_cover(path   = file.path(path_mp3, podcast$"podcast"),
-  #                        cover  = cover,
-  #                        album  = podcast$"podcast",
-  #                        artist = podcast$"artist",
-  #                        data   = tab)
+  create_m3u(tab, podcast, path)
 }
 
 
-## Restore locale ----
+## Restore system locale ----
 
 Sys.setlocale("LC_TIME", locale)
