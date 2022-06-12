@@ -19,11 +19,6 @@ jobs:
       - uses: actions/checkout@v2
 
       - uses: r-lib/actions/setup-r@master
-      
-      - name: Install devtools
-        run: |
-          install.packages("devtools")
-        shell: Rscript {0}
 
       - name: Run program
         run: Rscript -e 'source("make.R")'

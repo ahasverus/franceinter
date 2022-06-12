@@ -110,7 +110,7 @@ add_cover <- function(path, cover, album, artist, data) {
       
     }
     
-    usethis::ui_done("Covers successfully added!")
+    messages::msg_done("Covers successfully added!")
   }
   
   if (file.exists("tempfile")) system("rm tempfile")

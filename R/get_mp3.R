@@ -39,13 +39,12 @@ get_mp3 <- function(data, podcast, path = ".") {
   
   if (k > 0) {
     
-    usethis::ui_done(paste0("New episodes: {usethis::ui_value(k)} ",
-                            "mp3 downloaded in ",
-                            "{usethis::ui_value(file.path(path, \"mp3\", ", 
-                            "podcast))} "))
+    messages::msg_done("New episodes:", messages::msg_value(k),
+                       "mp3 downloaded in",
+                       messages::msg_value(file.path(path, "mp3")))
   } else {
     
-    usethis::ui_oops("No new mp3 downloaded.")
+    messages::msg_oops("No new mp3 downloaded.")
   }
   
   invisible(NULL)

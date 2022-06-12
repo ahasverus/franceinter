@@ -4,22 +4,10 @@
 \alias{get_metadata}
 \title{Retrieve Podcast Information}
 \usage{
-get_metadata(
-  podcast,
-  start_date = NULL,
-  end_date = NULL,
-  path = ".",
-  na_rm = TRUE
-)
+get_metadata(podcast, path = ".", na_rm = TRUE)
 }
 \arguments{
 \item{podcast}{a character of length 1. The name of the M3U file.}
-
-\item{start_date}{a character of length 1. The date of the oldest episode
-to retrieve. If \code{NULL} the \code{"2010-01-01"} will be used.}
-
-\item{end_date}{a character of length 1. The date of the most recent episode
-to retrieve. If \code{NULL} the current date will be used.}
 
 \item{path}{the path to save metadata as CSV (must exist).}
 
@@ -51,9 +39,6 @@ podcasts <- list_podcasts()
 podcast  <- podcasts[3, ]
 
 ## Retrieve episodes information ----
-tab <- get_metadata(podcast    = podcast$"podcast", 
-                    start_date = podcast$"start_date", 
-                    end_date   = podcast$"end_date", 
-                    path = path)
+tab <- get_metadata("un-ete-avec-homere", path = "inst")
 }
 }

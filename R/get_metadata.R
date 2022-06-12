@@ -6,12 +6,6 @@
 #' only new episodes will be treated.
 #' 
 #' @param podcast a character of length 1. The name of the M3U file.
-#' 
-#' @param start_date a character of length 1. The date of the oldest episode 
-#'   to retrieve. If `NULL` the `"2010-01-01"` will be used.
-#'   
-#' @param end_date a character of length 1. The date of the most recent episode 
-#'   to retrieve. If `NULL` the current date will be used.
 #'   
 #' @param path the path to save metadata as CSV (must exist).
 #' 
@@ -37,135 +31,58 @@
 #' podcast  <- podcasts[3, ]
 #' 
 #' ## Retrieve episodes information ----
-#' tab <- get_metadata(podcast    = podcast$"podcast", 
-#'                     start_date = podcast$"start_date", 
-#'                     end_date   = podcast$"end_date", 
-#'                     path = path)
+#' tab <- get_metadata("un-ete-avec-homere", path = "inst")
 #' }
 
-get_metadata <- function(podcast, start_date = NULL, end_date = NULL, 
-                         path = ".", na_rm = TRUE) {
+get_metadata <- function(podcast, path = ".", na_rm = TRUE) {
+  
   
   ## Check Inputs ----
   
-  if (!dir.exists(path)) stop("The path <", path, "> does not exist.")
-  
-  if (missing(podcast))       stop("Argument 'podcast' is required.")
-  if (is.null(podcast))       stop("Argument 'podcast' is required.")
-  if (!is.character(podcast)) stop("Argument 'podcast' must be a character.")
-  
-  page <- rvest::session(paste0(base_url(), podcast))
-  
-  if (page$response$status_code != 200) stop("Wrong podcast name.")
-  
-  if (!is.logical(na_rm))     stop("Argument 'na_rm' must be a boolean.")
+  check_arg_path(path)
+  check_arg_na_rm(na_rm)
+  check_arg_podcast(podcast)
   
   
-  ## Create Sequence of Dates ----
+  ## Check podcast name (is podcast home page URL exist?) ----
   
-  dates <- get_dates(from = start_date, to = end_date)
+  check_podcast_name(podcast)
   
   
   ## Read Previous Metadata ----
   
-  if (file.exists(file.path(path, "csv", paste0(podcast, ".csv")))) {
-    
-    data <- utils::read.csv2(file.path(path, "csv", paste0(podcast, ".csv")))
-    
-    if (sum(c("date", "title", "duration", "file_url") %in% colnames(data)) != 
-        4)
-      stop("Malformed <", file.path(path, "csv", paste0(podcast, ".csv")), 
-           "> file.")
-    
-    if (nrow(data)) {
-      
-      if (na_rm) {
-        
-        data <- data[!is.na(data$"date"), ]
-        data <- data[!is.na(data$"title"), ]
-        data <- data[!is.na(data$"duration"), ]
-        data <- data[!is.na(data$"file_url"), ]
-      }
-      
-      dates <- dates[as.Date(dates$short_date) > max(data$date), ]  
-    }
-    
-  } else {
-    
-    data <- data.frame()
-  }
-  
+  data <- read_metadata(path, podcast, na_rm)
   
   n_episodes <- nrow(data)
   
   
-  ## Retrieve New Episodes Metadata ----
+  ## Get date of last scrapped episode ----
   
-  if (nrow(dates)) {
-    
-    warn <- options()$"warn"
-    
-    episodes <- data.frame()
-    
-    for (i in 1:nrow(dates)) {
-      
-      full_url <- paste0(base_url(), podcast, "/", podcast, "-du-", 
-                         dates[i, "long_date"])
-      
-      options(warn = -1)
-      page <- rvest::session(full_url)
-      options(warn = warn)
-      
-      if (page$response$status_code == 404) {
-        
-        full_url <- paste0(base_url(), podcast, "/", podcast, "-", 
-                           dates[i, "long_date"])
-        
-        options(warn = -1)
-        page <- rvest::session(full_url)
-        options(warn = warn)
-      }
-      
-      if (page$response$status_code == 404) {
-        
-        full_url <- paste0(base_url(), podcast, "/", podcast, "-du-", 
-                           dates[i, "week_day"], "-", dates[i, "long_date"])
-        
-        options(warn = -1)
-        page <- rvest::session(full_url)
-        options(warn = warn)
-      }
-      
-      if (page$response$status_code == 404) {
-        
-        full_url <- paste0(base_url(), podcast, "/", podcast, "-", 
-                           dates[i, "week_day"], "-", dates[i, "long_date"])
-        
-        options(warn = -1)
-        page <- rvest::session(full_url)
-        options(warn = warn)
-      }
-      
-      if (page$response$status_code == 200) {
-        
-        cat("Retrieving metadata for episode:", dates[i, "short_date"], "\n")
-        
-        content <- rvest::html_elements(page, "script")[1]
-        content <- jsonlite::fromJSON(rvest::html_text(content))
-        
-        tmp <- data.frame(
-          date     = as.character(as.Date(content$hasPart$datePublished)),
-          title    = content$name,
-          duration = content$audio$duration,
-          file_url = content$audio$contentUrl
-        )
-        
-        episodes <- rbind(episodes, tmp)
-      }
-    }
-    
-    data <- rbind(data, episodes)
+  if (nrow(data) > 0) {
+    start_date <- as.character(max(as.Date(data$"date")))
+  } else {
+    start_date <- NULL
   }
+  
+  
+  ## Check for new episodes ----
+  
+  podcasts <- check_for_new_episodes(podcast, path, start_date, na_rm)
+  
+  
+  ## Get new episodes ----
+  
+  podcasts <- get_new_episodes(podcasts, podcast)
+  
+  
+  ## Clean dates ----
+  
+  podcasts <- convert_dates(podcasts)
+  
+  
+  ## Append new episodes ----
+  
+  if (nrow(podcasts)) data <- rbind(podcasts, data)
   
   
   ## Remove Episodes with Incomplete Information ----
@@ -187,14 +104,13 @@ get_metadata <- function(podcast, start_date = NULL, end_date = NULL,
                                              paste0(podcast, ".csv")),
                       row.names = FALSE)
     
-    usethis::ui_done(paste0("Adding ", 
-                            "{usethis::ui_value(nrow(data) - n_episodes)} ",
-                            "new episodes to ",
-                            "{usethis::ui_value(file.path(path, \"csv\", ",
-                            "paste0(podcast, \".csv\")))}"))
+    messages::msg_done("Adding",messages::msg_value(nrow(data) - n_episodes),
+                       "new episodes to",
+                       messages::msg_value(file.path(path, "csv", 
+                                                     paste0(podcast, ".csv"))))
   } else {
     
-    usethis::ui_oops("No new episode found.")
+    messages::msg_oops("No new episode found")
   }
   
   

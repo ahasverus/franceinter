@@ -12,15 +12,19 @@
 
 ## Install Dependencies (listed in DESCRIPTION) ----
 
-devtools::install_deps(upgrade = "never")
+if (!("remotes" %in% utils::installed.packages()[ , 1])) {
+  install.packages("remotes")
+}
+
+remotes::install_deps(upgrade = "never")
 
 
 ## Load Project Addins (R Functions and Packages) ----
 
-devtools::load_all()
+pkgload::load_all(here::here())
 
 
-## Path(s) to Save Results ----
+## Path to Save Results ----
 
 path <- here::here("inst")
 
@@ -30,37 +34,36 @@ path <- here::here("inst")
 locale <- Sys.getlocale("LC_TIME")
 Sys.setlocale("LC_TIME", "fr_FR.UTF-8")
 
+
 # path_mp3 <- file.path("", "Users", "nicolascasajus", "Nextcloud", "Podcasts")
 # cover    <- file.path(path_mp3, "sur-les-epaules-de-darwin.jpg")
 
 
 ## Get Podcast Info ----
 
-podcasts <- franceinter::list_podcasts()
+podcasts <- c("tanguy-pastureau-maltraite-l-info", "le-moment-meurice", 
+              "la-chronique-de-waly-dia", "la-chanson-de-frederic-fromet", 
+              "la-chronique-d-aymeric-lompret", "la-chronique-de-constance", 
+              "la-drole-d-humeur-de-guillermo-guiz", 
+              "la-chronique-de-djamil-le-shlag")
 
-for (i in 1:nrow(podcasts)) {
+for (i in 1:length(podcasts)) {
 
-  podcast  <- podcasts[i, ]
+  podcast  <- podcasts[i]
 
-  cat("\n*** ", podcast$"podcast", " ***\n")
+  cat("\n*** ", podcast, " ***\n")
 
 
   ## Retrieve Metadata ----
 
-  franceinter::get_metadata(podcast    = podcast$"label",
-                            start_date = podcast$"start_date",
-                            end_date   = podcast$"end_date",
-                            path       = path,
-                            na_rm      = TRUE)
+  franceinter::get_metadata(podcast, path, na_rm = TRUE)
 
 
-  ## Create Playlist ----
+  ## Create M3U Playlist ----
 
-  tab <- read.csv2(file.path(path, "csv", paste0(podcast$"label", ".csv")))
+  tab <- read.csv2(file.path(path, "csv", paste0(podcast, ".csv")))
 
-  franceinter::add_m3u(data    = tab,
-                       podcast = podcast$"label",
-                       path    = path)
+  franceinter::add_m3u(tab, podcast, path)
 
 
   ## Download mp3 ----
@@ -80,14 +83,6 @@ for (i in 1:nrow(podcasts)) {
 }
 
 
-## Create MEGA M3U file ----
-
-franceinter::all_m3u(path)
-
-
 ## Restore locale ----
 
 Sys.setlocale("LC_TIME", locale)
-
-print(Sys.time())
-

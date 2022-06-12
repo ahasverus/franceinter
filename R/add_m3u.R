@@ -66,7 +66,7 @@ add_m3u <- function(data, podcast, path = ".", na_rm = TRUE) {
     data <- data[!is.na(data$"file_url"), ]
   }
 
-  data <- data[nrow(data):1, ]
+  # data <- data[nrow(data):1, ]
 
 
   ## Write M3U Expression ----
@@ -80,7 +80,6 @@ add_m3u <- function(data, podcast, path = ".", na_rm = TRUE) {
     meta <- paste("\n#EXTINF:",
                   paste0(data$"duration"[i], ","),
                   ids[i],
-                  # paste0("[", gsub("-", ".", data$"date"[i]), "]"), 
                   gsub(",", "", data$"title"[i]))
 
     content <- c(content, meta, data$"file_url"[i])
@@ -92,9 +91,10 @@ add_m3u <- function(data, podcast, path = ".", na_rm = TRUE) {
   cat(paste0(c(content, ""), collapse = "\n"),
       file = file.path(path, "m3u", paste0(tolower(podcast), ".m3u")))
 
-  usethis::ui_done(paste0("Writing ",
-                          "{usethis::ui_value(file.path(path, \"m3u\", ", 
-                          "paste0(podcast, \".m3u\")))} file"))
+  messages::msg_done("Writing", 
+                     messages::msg_value(file.path(path, "m3u",
+                                                   paste0(podcast, ".m3u"))), 
+                                         "file")
 
   invisible(content)
 }
