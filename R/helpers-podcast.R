@@ -50,7 +50,7 @@ check_for_dates <- function(data, limit) {
                                      dates_dict$"full_month", dates_dict$"year")
     
     data$"date" <- gsub("\u00FB", "u", data$"date")
-    data$"date" <- gsub("\u00E9", "é", data$"date")
+    data$"date" <- gsub("\u00E9", "e", data$"date")
     
     dates_dict <- dates_dict[which(dates_dict$"long_dates" %in% data$"date"), ]
     dates_dict <- dates_dict[ , c("short_date", "long_dates")]
