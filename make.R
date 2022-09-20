@@ -46,8 +46,9 @@ podcasts <- c("tanguy-pastureau-maltraite-l-info",
               "la-chronique-de-djamil-le-shlag",
               "la-methode-scientifique",
               "carbone-14-le-magazine-de-l-archeologie",
-              "fictions-samedi-noir",
-              "la-conversation-scientifique")
+              "fictions-samedi-noir"#,
+              #"la-conversation-scientifique"
+             )
 
 radios   <- c("franceinter",
               "franceinter",
@@ -59,8 +60,9 @@ radios   <- c("franceinter",
               "franceinter",
               "franceculture",
               "franceculture",
-              "franceculture",
-              "franceculture")
+              "franceculture"#,
+              #"franceculture"
+             )
 
 for (i in 1:length(podcasts)) {
 
