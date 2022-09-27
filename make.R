@@ -14,7 +14,7 @@
 
 ## Install dependencies (listed in DESCRIPTION) ----
 
-# install.packages(c("here", "pkgload", "remotes"))
+install.packages(c("here", "pkgload", "remotes"))
 remotes::install_deps(upgrade = "never")
 
 
