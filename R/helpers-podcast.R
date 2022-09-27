@@ -94,7 +94,7 @@ check_for_new_episodes <- function(podcast, radio, path, limit, na_rm) {
       
       for (k in 1:length(content)) {
         
-        card  <- rvest::html_elements(content[k], ".CardDetails-title")
+        card  <- rvest::html_elements(content[k], ".ConceptTitle")
         links <- rvest::html_elements(card, "a")
         
         if (length(links)) {

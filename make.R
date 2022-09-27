@@ -14,7 +14,7 @@
 
 ## Install dependencies (listed in DESCRIPTION) ----
 
-install.packages(c("here", "pkgload", "remotes"))
+# install.packages(c("here", "pkgload", "remotes"))
 remotes::install_deps(upgrade = "never")
 
 
@@ -46,8 +46,10 @@ podcasts <- c("tanguy-pastureau-maltraite-l-info",
               "la-chronique-de-djamil-le-shlag",
               "la-methode-scientifique",
               "carbone-14-le-magazine-de-l-archeologie",
-              "fictions-samedi-noir"#,
-              #"la-conversation-scientifique"
+              "fictions-samedi-noir",
+              "le-billet-de-matthieu-noel",
+              "la-chronique-de-doully",
+              "quand-les-dieux-rodaient-sur-la-terre"
              )
 
 radios   <- c("franceinter",
@@ -60,8 +62,10 @@ radios   <- c("franceinter",
               "franceinter",
               "franceculture",
               "franceculture",
-              "franceculture"#,
-              #"franceculture"
+              "franceculture",
+              "franceinter",
+              "franceinter",
+              "franceinter"
              )
 
 for (i in 1:length(podcasts)) {
