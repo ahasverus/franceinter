@@ -49,7 +49,8 @@ podcasts <- c("tanguy-pastureau-maltraite-l-info",
               "fictions-samedi-noir",
               "le-billet-de-matthieu-noel",
               "la-chronique-de-doully",
-              "quand-les-dieux-rodaient-sur-la-terre"
+              "quand-les-dieux-rodaient-sur-la-terre",
+              "le-billet-d-alexandre-kominek"
              )
 
 radios   <- c("franceinter",
@@ -63,6 +64,7 @@ radios   <- c("franceinter",
               "franceculture",
               "franceculture",
               "franceculture",
+              "franceinter",
               "franceinter",
               "franceinter",
               "franceinter"
