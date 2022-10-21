@@ -1,0 +1,28 @@
+Package: radiofrance
+Type: Package
+Title: Get Radio France Podcasts
+Version: 1.0
+Authors@R: c(
+    person(given   = "Nicolas",
+           family  = "Casajus",
+           role    = c("aut", "cre", "cph"),
+           email   = "nicolas.casajus@gmail.com",
+           comment = c(ORCID = "0000-0002-5537-5294")))
+Description: Retrieves Radio France (France Inter, France Culture, etc.) 
+    podcasts metadata (date, title, mp3 url, and duration). User can easily 
+    download metadata for any podcast. The name of the podcast must be extracted
+    from the website URL (e.g. Le Moment Meurice must be written as 
+    le-moment-meurice).
+URL: https://github.com/ahasverus/radiofrance
+BugReports: https://github.com/ahasverus/radiofrance/issues
+License: MIT + file LICENSE
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.2.1
+Imports: 
+    jsonlite,
+    messages,
+    rvest,
+    utils
+Remotes: 
+    frbcesab/messages
