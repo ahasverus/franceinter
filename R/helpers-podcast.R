@@ -86,7 +86,7 @@ check_for_new_episodes <- function(podcast, radio, path, limit, na_rm) {
     
     if (html_page$"response"$"status_code" != 200) stop("Error 404")
     
-    content <- rvest::html_elements(html_page, ".CardDetails")
+    content <- rvest::html_elements(html_page, ".CardMedia")
     
     if (length(content)) {
       
