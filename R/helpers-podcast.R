@@ -155,23 +155,21 @@ get_new_episodes <- function(data, podcast) {
     
     for (i in 1:nrow(data)) {
       
-      html_page <- rvest::session(data[i, "url"])
+      html_page <- readLines(data[i, "url"])
       
-      if (html_page$"response"$"status_code" != 200) stop("Error 404")
+      html_page <- html_page[grep("mp3", html_page)][1]
+      html_page <- strsplit(html_page, "<!-- HTML_TAG_START -->")[[1]]
+      html_page <- strsplit(html_page[3], ">|<")[[1]]
       
-      content <- rvest::html_elements(html_page, "script")
-      content <- content[length(content)]
+      content <- html_page[grep("^\\{.*\\}$", html_page)]
+      content <- jsonlite::fromJSON(content)$`@graph`
       
-      content <- jsonlite::fromJSON(rvest::html_text(content))
-      content <- jsonlite::fromJSON(content$"body")
-      
-      episode_title <- content$"content"$"title"
+      episode_title <- content$"name"
       if (is.null(episode_title)) episode_title <- NA
       
-      episode_duration <- content$"content"$"manifestations"$"duration"
-      if (is.null(episode_duration)) episode_duration <- NA
+      episode_duration <- NA
       
-      episode_file_url <- content$"content"$"manifestations"$"url"
+      episode_file_url <- content$"mainEntity"$"contentUrl"
       if (is.null(episode_file_url)) episode_file_url <- NA
       
       tmp <- data.frame(
