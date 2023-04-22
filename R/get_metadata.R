@@ -92,7 +92,7 @@ get_metadata <- function(podcast, radio = "franceinter", path = ".",
     
     data <- data[!is.na(data$"date"), ]
     data <- data[!is.na(data$"title"), ]
-    data <- data[!is.na(data$"duration"), ]
+    # data <- data[!is.na(data$"duration"), ]
     data <- data[!is.na(data$"file_url"), ]
   }
   
