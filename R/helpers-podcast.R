@@ -45,7 +45,7 @@ check_for_dates <- function(data, limit) {
   if (!is.null(limit)) {
     
     dates_dict <- get_dates()
-    dates_dict$"long_dates" <- paste(dates_dict$"week_day", 
+    dates_dict$"long_dates" <- paste(#dates_dict$"week_day", 
                                      as.numeric(dates_dict$"day"),
                                      dates_dict$"full_month", dates_dict$"year")
     
@@ -94,7 +94,7 @@ check_for_new_episodes <- function(podcast, radio, path, limit, na_rm) {
       
       for (k in 1:length(content)) {
         
-        card  <- rvest::html_elements(content[k], ".ConceptTitle")
+        card  <- rvest::html_elements(content[k], ".CardTitle")
         links <- rvest::html_elements(card, "a")
         
         if (length(links)) {
@@ -106,8 +106,9 @@ check_for_new_episodes <- function(podcast, radio, path, limit, na_rm) {
           page_titles <- gsub("^\\s{1,}|\\s{1,}$", "", page_titles)
           page_titles <- gsub("\\s+", " ", page_titles)
           
-          page_dates <- rvest::html_elements(content[k], "time")
+          page_dates <- rvest::html_elements(content[k], ".CardText")
           page_dates <- rvest::html_text(page_dates)
+          page_dates <- page_dates[1]
           page_dates <- gsub("\\n", "", page_dates)
           page_dates <- gsub("^\\s{1,}|\\s{1,}$", "", page_dates)
           page_dates <- gsub("\\s+", " ", page_dates)
@@ -161,6 +162,7 @@ get_new_episodes <- function(data, podcast) {
       html_page <- strsplit(html_page, "<!-- HTML_TAG_START -->")[[1]]
       
       if (length(grep("mp3", html_page)) == 1 && grep("mp3", html_page) == 3) {
+        
         html_page <- strsplit(html_page[grep("mp3", html_page)], ">|<")[[1]]
         
         content <- html_page[grep("^\\{.*\\}$", html_page)]
@@ -200,7 +202,7 @@ convert_dates <- function(data) {
   if (nrow(data)) {
     
     dates_dict <- get_dates()
-    dates_dict$"long_dates" <- paste(dates_dict$"week_day", 
+    dates_dict$"long_dates" <- paste(#dates_dict$"week_day", 
                                      as.numeric(dates_dict$"day"),
                                      dates_dict$"full_month", dates_dict$"year")
     
