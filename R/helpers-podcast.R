@@ -82,9 +82,9 @@ check_for_new_episodes <- function(podcast, radio, path, limit, na_rm) {
     ## Go to podcast homepage (page page) ----
     
     full_url  <- paste0(base_url(radio), podcast, "?p=", page)
-    html_page <- rvest::session(full_url)
+    html_page <- rvest::read_html(full_url)
     
-    if (html_page$"response"$"status_code" != 200) stop("Error 404")
+    # if (html_page$"response"$"status_code" != 200) stop("Error 404")
     
     content <- rvest::html_elements(html_page, ".CardMedia")
     
