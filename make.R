@@ -52,8 +52,9 @@ podcasts <- c("tanguy-pastureau-maltraite-l-info",
               "quand-les-dieux-rodaient-sur-la-terre",
               "le-billet-d-alexandre-kominek",
               "geremy-part-en-live",
-              "la-chronique-de-yann-marguet"
-             )
+              "la-chronique-de-yann-marguet",
+              "la-chronique-de-djubaka"
+)
 
 radios   <- c("franceinter",
               "franceinter",
@@ -71,23 +72,24 @@ radios   <- c("franceinter",
               "franceinter",
               "franceinter",
               "franceinter",
+              "franceinter",
               "franceinter"
-             )
+)
 
 for (i in 1:length(podcasts)) {
-
+  
   cat("\n*** ", podcasts[i], " ***\n")
-
-
+  
+  
   ## Retrieve Metadata ----
-
+  
   get_metadata(podcasts[i], radio = radios[i], path, na_rm = TRUE)
-
-
+  
+  
   ## Create M3U Playlist ----
-
+  
   tab <- read.csv2(file.path(path, "csv", paste0(podcasts[i], ".csv")))
-
+  
   create_m3u(tab, podcasts[i], path)
 }
 
