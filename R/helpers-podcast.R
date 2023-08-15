@@ -113,6 +113,10 @@ check_for_new_episodes <- function(podcast, radio, path, limit, na_rm) {
           page_dates <- gsub("^\\s{1,}|\\s{1,}$", "", page_dates)
           page_dates <- gsub("\\s+", " ", page_dates)
           
+          if (length(strsplit(page_dates, " ")[[1]]) == 2) {
+            page_dates <- paste(page_dates, format(Sys.Date(), "%Y"))
+          }
+          
           tmp <- data.frame("title" = page_titles,
                             "date"  = page_dates,
                             "url"   = page_links)
