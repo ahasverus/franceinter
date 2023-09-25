@@ -45,12 +45,14 @@ check_for_dates <- function(data, limit) {
   if (!is.null(limit)) {
     
     dates_dict <- get_dates()
-    dates_dict$"long_dates" <- paste(#dates_dict$"week_day", 
-                                     as.numeric(dates_dict$"day"),
-                                     dates_dict$"full_month", dates_dict$"year")
+    # dates_dict$"long_dates" <- paste(#dates_dict$"week_day", 
+    #                                  as.numeric(dates_dict$"day"),
+    #                                  dates_dict$"full_month", dates_dict$"year")
     
-    data$"date" <- gsub("\u00FB", "u", data$"date")
-    data$"date" <- gsub("\u00E9", "e", data$"date")
+    dates_dict$"long_dates" <- format(as.Date(dates_dict$"short_date"), "%d %b %Y")
+    
+    # data$"date" <- gsub("\u00FB", "u", data$"date")
+    # data$"date" <- gsub("\u00E9", "e", data$"date")
     
     dates_dict <- dates_dict[which(dates_dict$"long_dates" %in% data$"date"), ]
     dates_dict <- dates_dict[ , c("short_date", "long_dates")]
@@ -115,6 +117,14 @@ check_for_new_episodes <- function(podcast, radio, path, limit, na_rm) {
           
           if (length(strsplit(page_dates, " ")[[1]]) == 2) {
             page_dates <- paste(page_dates, format(Sys.Date(), "%Y"))
+          }
+          
+          if (length(grep("Aujourd'hui", page_dates)) > 0) {
+            page_dates <- format(Sys.Date(), "%d %b %Y")
+          }
+          
+          if (length(grep("Hier", page_dates)) > 0) {
+            page_dates <- format(Sys.Date() - 1, "%d %b %Y")
           }
           
           tmp <- data.frame("title" = page_titles,
@@ -212,7 +222,7 @@ convert_dates <- function(data) {
     
     dates_dict <- dates_dict[ , c("short_date", "long_dates")]
     
-    data$"date" <- gsub("[[:punct:]]", "", 
+    data$"date" <- gsub("[[:punct:]]", "embre", 
                         iconv(data$"date", to = "ASCII//TRANSLIT"))
     
     data <- merge(data, dates_dict, by.x = "date", by.y = "long_dates",
