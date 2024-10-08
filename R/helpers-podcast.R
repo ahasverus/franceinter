@@ -50,7 +50,7 @@ check_for_dates <- function(data, limit) {
     #                                  dates_dict$"full_month", dates_dict$"year")
     
     dates_dict$"long_dates" <- format(as.Date(dates_dict$"short_date"), "%d %b %Y")
-    
+    dates_dict$"long_dates" <- gsub("^0", "", dates_dict$"long_dates")
     # data$"date" <- gsub("\u00FB", "u", data$"date")
     # data$"date" <- gsub("\u00E9", "e", data$"date")
     
@@ -175,30 +175,48 @@ get_new_episodes <- function(data, podcast) {
       html_page <- html_page[grep("mp3", html_page)][1]
       html_page <- strsplit(html_page, "<!-- HTML_TAG_START -->")[[1]]
       
+      episode_duration <- NA
+      episode_title    <- NA
+      episode_file_url <- NA
+      
       if (length(grep("mp3", html_page)) == 1 && grep("mp3", html_page) == 3) {
         
         html_page <- strsplit(html_page[grep("mp3", html_page)], ">|<")[[1]]
         
-        content <- html_page[grep("^\\{.*\\}$", html_page)]
-        content <- jsonlite::fromJSON(content)$`@graph`
+        if (length(grep("^\\{.*\\}$", html_page)) > 0) {
+          
+          content <- html_page[grep("^\\{.*\\}$", html_page)]
+          content <- jsonlite::fromJSON(content)$`@graph`
+          
+          episode_title <- content$"name"
+          if (is.null(episode_title)) episode_title <- NA
+          
+          episode_file_url <- content$"mainEntity"$"contentUrl"
+          if (is.null(episode_file_url)) episode_file_url <- NA
+        }
         
-        episode_title <- content$"name"
-        if (is.null(episode_title)) episode_title <- NA
+      } else {
+          
+        content <- strsplit(html_page[[1]], "\\[|\\]|\\{|\\}|,")
+        content <- content[[1]]
         
-        episode_duration <- NA
+        episode_title <- content[grep("^title", content)]
+        episode_title <- episode_title[2]
+        episode_title <- gsub("title:\\\"|\\\"", "", episode_title)
         
-        episode_file_url <- content$"mainEntity"$"contentUrl"
-        if (is.null(episode_file_url)) episode_file_url <- NA
-        
-        tmp <- data.frame(
-          "date"     = data[i, "date"],
-          "title"    = episode_title,
-          "duration" = episode_duration,
-          "file_url" = episode_file_url
-        )
-        
-        new_episodes <- rbind(new_episodes, tmp)
+        episode_file_url <- content[grep("mp3", content)]
+        episode_file_url <- episode_file_url[length(episode_file_url)]
+        episode_file_url <- gsub("url:\\\"|\\\"", "", episode_file_url)
       }
+        
+      tmp <- data.frame(
+        "date"     = data[i, "date"],
+        "title"    = data[i, "title"],
+        "duration" = episode_duration,
+        "file_url" = episode_file_url
+      )
+      
+      new_episodes <- rbind(new_episodes, tmp)
     }
   }
   
