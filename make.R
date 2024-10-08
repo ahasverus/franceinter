@@ -36,39 +36,24 @@ Sys.setlocale("LC_TIME", "fr_FR.UTF-8")
 
 ## List podcast names ----
 
-podcasts <- c("tanguy-pastureau-maltraite-l-info", 
-              "le-moment-meurice", 
-              "la-chronique-de-waly-dia", 
-              "la-chanson-de-frederic-fromet", 
-              "la-chronique-d-aymeric-lompret", 
-              "le-journal-de-presque-17h17",
-              "la-chronique-de-djamil-le-shlag",
-              "carbone-14-le-magazine-de-l-archeologie",
-              "le-billet-de-matthieu-noel",
-              "la-chronique-de-doully",
-              "quand-les-dieux-rodaient-sur-la-terre",
-              "le-billet-d-alexandre-kominek",
-              "geremy-part-en-live",
-              "la-chronique-de-yann-marguet",
-              "la-chronique-de-djubaka"
+podcasts <- c(#"tanguy-pastureau-maltraite-l-info", 
+              #"le-moment-meurice", 
+              "la-chronique-de-waly-dia" 
+              #"la-chanson-de-frederic-fromet", 
+              #"la-chronique-d-aymeric-lompret", 
+              #"le-journal-de-presque-17h17",
+              #"la-chronique-de-djamil-le-shlag",
+              #"carbone-14-le-magazine-de-l-archeologie",
+              #"le-billet-de-matthieu-noel",
+              #"la-chronique-de-doully",
+              #"quand-les-dieux-rodaient-sur-la-terre",
+              #"le-billet-d-alexandre-kominek",
+              #"geremy-part-en-live",
+              #"la-chronique-de-yann-marguet"
+              #"la-chronique-de-djubaka"
 )
 
-radios   <- c("franceinter",
-              "franceinter",
-              "franceinter",
-              "franceinter",
-              "franceinter",
-              "franceinter",
-              "franceinter",
-              "franceculture",
-              "franceinter",
-              "franceinter",
-              "franceinter",
-              "franceinter",
-              "franceinter",
-              "franceinter",
-              "franceinter"
-)
+radios   <- c("franceinter")
 
 for (i in 1:length(podcasts)) {
   
